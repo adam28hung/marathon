@@ -1,0 +1,20 @@
+<%= form_for @contest_query, url: search_contests_path do |f| %>
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4 text-center">
+    <!-- <div class="form-group">
+        <p class="form-control-static"><%# @contest.name %></p>
+        <%# f.hidden_field :objectid, value: @contest.objectid %>
+    </div> -->
+    <div class="form-group">
+      <div class="input-group">
+        <%= f.text_field :number , class: 'form-control' , id: 'number' , placeholder: '輸入號碼', title: '請輸入數字' , required: true %>
+        <span class="input-group-btn">
+          <%= f.submit "查詢", class: "btn btn-default" , data: { disable_with: "..." } %>  
+        </span>
+        <%= f.hidden_field :objectid, value: @contest.objectid %>
+      </div><!-- /input-group -->
+    </div>
+  </div>
+  <div class="col-lg-4"></div>
+<% end %>
+<%# @result_count %>

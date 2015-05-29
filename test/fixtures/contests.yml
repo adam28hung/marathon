@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  contestid: MyString
+  name: MyString
+  place: MyString
+
+two:
+  contestid: MyString
+  name: MyString
+  place: MyString
