@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="<%= meta_description %>">
+  <meta name="author" content="<%= meta_author %>">
+  <meta name="Keywords" content="<%= meta_keywords %>">
+
+  <title><%= full_title(yield(:title)) %></title>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <!-- Custom styles for this template -->
+  <link href="/css/cover.css" rel="stylesheet">
+  <a href="#Top"></a>
+</head>
+<body>
+
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Marathon</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <!-- <li class="active"><a href="#">首頁</a></li> -->
+                  <li><%= link_to "所有賽事", contests_path %></li>
+                  <li><%= link_to "查詢", search_contests_path %></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">Search your photo.</h1>
+            <table class="table">
+              <tbody>
+                <% @contests = Contest.all.limit(3) %>
+                <% @contests.each_with_index do |contest, index| %>
+                  <tr>
+                    <th scope="row"><%= index + 1 %></th>
+                    <td><%= link_to(contest.name, contest_path(contest)) %></td>
+                    <td><%= contest.place %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+              <%= link_to "Check out more", contests_path, class: "btn btn-lg btn-default" %>
+            </p>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p></p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+</body>
+</html>

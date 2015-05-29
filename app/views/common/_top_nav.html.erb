@@ -1,0 +1,20 @@
+<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to site_name, site_url, :class => "navbar-brand" %>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav pull-right">
+        <!-- <li class="<%# 'active' if current_page?(root_path) %>"><%# link_to "首頁", root_path %></li> -->
+        <li class="<%= 'active' if current_page?(contests_path) %>"><%= link_to "所有賽事", contests_path %></li>
+        <li class="<%= 'active' if current_page?(search_contests_path) %>"><%= link_to "查詢", search_contests_path %></li>
+      </ul>
+    </div><!-- /.nav-collapse -->
+  </div><!-- /.container -->
+</div><!-- /.navbar -->

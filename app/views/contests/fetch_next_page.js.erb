@@ -1,0 +1,4 @@
+$("#photos_container").append("<%= escape_javascript( render(partial: 'photo_set', :collection => @photos, :as => :photo ) ) %>")
+
+$("#load_more_data_container").empty()
+  .append("<%= escape_javascript( render(partial: 'load_more_data', locals: {contest: @contest, next_page: @next_page} ) )%>")
