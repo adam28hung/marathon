@@ -21,7 +21,7 @@ class ContestsController < ApplicationController
   end
   
   def show
-    
+
     # retrieve order(createdAt: desc)
     # default limit 100 a query
     query_this_contest = Parse::Query.new("Photo").tap do |q|
@@ -32,8 +32,8 @@ class ContestsController < ApplicationController
       q.count
     end.get
     
-    @initial_photos_set = query_this_contest['results'] 
-
+    @initial_photos_set = naturalized(query_this_contest['results'])
+    
   end
 
   def search
@@ -56,7 +56,8 @@ class ContestsController < ApplicationController
         q.limit = @records_per_request
         q.count
       end.get
-      @query_results = query_this_contest['results'] 
+
+      @query_results = naturalized(query_this_contest['results'])
       @query_results_amount = query_this_contest['count']
       @contest_name = @contest.name
 
@@ -80,7 +81,8 @@ class ContestsController < ApplicationController
         q.count
       end.get
       @next_page = query_page + 1
-      @photos = query_this_contest['results']
+
+      @photos = naturalized(query_this_contest['results'])
       @result_count = query_this_contest['results'].count
 
       @this_page = query_page
@@ -162,4 +164,14 @@ class ContestsController < ApplicationController
     @contest_query = ContestQuery.new
   end
   
+  def naturalized(origin)
+
+    origin.each_with_index do |photo, index|
+      last_part = URI(photo['imageURL']).path.split('/').last
+      new_name = last_part.gsub('o.jpg','n.jpg')
+      photo['imageURL'] = photo['imageURL'].gsub(last_part,"p240x240/#{new_name}")
+    end
+
+  end
+
 end
