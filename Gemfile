@@ -54,7 +54,7 @@ group :development do
   #gem 'xray-rails'
   gem 'capistrano',  '~> 3.1'
   gem 'capistrano-rails',   '~> 1.1', require: false
-  gem 'capistrano-passenger'
+  # gem 'capistrano-passenger'
   # gem 'capistrano-bundler', '~> 1.1.2', require: false
   
   # gem 'rvm-capistrano'
