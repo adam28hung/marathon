@@ -1,6 +1,5 @@
 <%= form_for @contest_query, url: search_contests_path do |f| %>
-  <div class="col-lg-4"></div>
-  <div class="col-lg-4 text-center">
+  <div class="col-md-12 col-lg-6 col-lg-offset-3  text-center">
     <!-- <div class="form-group">
         <p class="form-control-static"><%# @contest.name %></p>
         <%# f.hidden_field :objectid, value: @contest.objectid %>
@@ -9,12 +8,12 @@
       <div class="input-group">
         <%= f.text_field :number , class: 'form-control' , id: 'number' , placeholder: '輸入號碼', title: '請輸入數字' , required: true %>
         <span class="input-group-btn">
-          <%= f.submit "查詢", class: "btn btn-default" , data: { disable_with: "..." } %>  
+          <%= f.submit "查詢", class: "btn btn-primary" , data: { disable_with: "..." } %>  
         </span>
         <%= f.hidden_field :objectid, value: @contest.objectid %>
       </div><!-- /input-group -->
     </div>
   </div>
-  <div class="col-lg-4"></div>
 <% end %>
+<div class='shareaholic-canvas' data-app='share_buttons' data-app-id='17932779'></div>
 <%# @result_count %>

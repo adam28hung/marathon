@@ -31,7 +31,7 @@ class Contest < ActiveRecord::Base
     
     Contest.order("#{order_columns[rand(0..count)]} " + "#{desc_asc[rand(0..1)]}" ).pluck(:id)
   end
-  
+
 end
 
 class ContestQuery
