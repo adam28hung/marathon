@@ -20,27 +20,29 @@
             </div>
           </div>
 
-          <div class="inner cover">
+          <div class="jumbotron">
             <h1 class="cover-heading">Search your photo.</h1>
+          </div>
+
+          <div class="inner cover">
+
             <table class="table">
               <tbody>
                 <% @contests = Contest.all.limit(3) %>
-                <% @contests.each_with_index do |contest, index| %>
+                <% @contests.each do |contest| %>
                   <tr>
-                    <th scope="row"><%= index + 1 %></th>
                     <td><%= link_to(contest.name, contest_path(contest)) %></td>
                     <td><%= contest.place %></td>
                   </tr>
                 <% end %>
               </tbody>
             </table>
-              <%= link_to "Check out more", contests_path, class: "btn btn-lg btn-default" %>
-            </p>
+            <%= link_to "Check out more", contests_path, class: "btn btn-lg btn-default" %>
           </div>
-
+          
           <div class="mastfoot">
             <div class="inner">
-              <p></p>
+              <p><div class='shareaholic-canvas' data-app='share_buttons' data-app-id='17932779'></div></p>
             </div>
           </div>
 

@@ -19,8 +19,16 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script type="text/javascript">
-  //<![CDATA[
+
+
+  <a href="#Top"></a>
+</head>
+<body>
+<%= render 'common/top_nav' unless current_page?(root_path) %>
+<%= yield %>
+<script type="text/javascript">
+  $(document).ready(function(){
+    //<![CDATA[
     (function() {
       var shr = document.createElement('script');
       shr.setAttribute('data-cfasync', 'false');
@@ -36,13 +44,8 @@
       s.parentNode.insertBefore(shr, s);
     })();
   //]]>
+  });
+  
   </script>
-
-  <a href="#Top"></a>
-</head>
-<body>
-<%= render 'common/top_nav' unless current_page?(root_path) %>
-<%= yield %>
-
 </body>
 </html>
