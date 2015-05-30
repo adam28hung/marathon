@@ -32,8 +32,26 @@ class ContestsController < ApplicationController
       q.count
     end.get
     
-    @initial_photos_set = naturalized(query_this_contest['results'])
+    @initial_photos_set = naturalized(query_this_contest['results'], 240)
     
+  end
+
+  def share
+    valid_objectid?(params[:photo_id])
+    
+    query_this_contest = Parse::Query.new("Photo").tap do |q|
+      q.eq("objectId", params[:photo_id])
+      q.order_by = 'createdAt'
+      q.order = :descending
+      q.limit = 1
+      q.count
+    end.get
+    
+    if query_this_contest['count'] > 0
+      @photo = naturalized(query_this_contest['results'], 720)
+      @contest = Contest.find_by(objectid: @photo[0]['contestId'])
+    end
+
   end
 
   def search
@@ -57,7 +75,7 @@ class ContestsController < ApplicationController
         q.count
       end.get
 
-      @query_results = naturalized(query_this_contest['results'])
+      @query_results = naturalized(query_this_contest['results'], 240)
       @query_results_amount = query_this_contest['count']
       @contest_name = @contest.name
 
@@ -82,7 +100,7 @@ class ContestsController < ApplicationController
       end.get
       @next_page = query_page + 1
 
-      @photos = naturalized(query_this_contest['results'])
+      @photos = naturalized(query_this_contest['results'], 240)
       @result_count = query_this_contest['results'].count
 
       @this_page = query_page
@@ -164,14 +182,20 @@ class ContestsController < ApplicationController
     @contest_query = ContestQuery.new
   end
   
-  def naturalized(origin)
+  def naturalized(origin_set, size)
 
-    origin.each_with_index do |photo, index|
+    origin_set.each_with_index do |photo, index|
       last_part = URI(photo['imageURL']).path.split('/').last
       new_name = last_part.gsub('o.jpg','n.jpg')
-      photo['imageURL'] = photo['imageURL'].gsub(last_part,"p240x240/#{new_name}")
+      photo['imageURL'] = photo['imageURL'].gsub(last_part,"p#{size}x#{size}/#{new_name}")
     end
 
+  end
+
+  def valid_objectid?(objectid)
+    valid_objectid_REGEX = /[0-9a-zA-Z]{10}/i
+    objectid.present? &&
+     (objectid =~ valid_objectid_REGEX)
   end
 
 end
