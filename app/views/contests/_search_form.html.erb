@@ -1,19 +1,16 @@
 <%= form_for @contest_query, url: search_contests_path do |f| %>
-  <div class="col-lg-4"></div>
-  <div class="col-lg-4 text-center">
+  <div class="col-md-12 col-lg-6 col-lg-offset-3 text-center">
     <div class="form-group">
       <%= f.select :objectid, options_from_collection_for_select(@contests ,
-            "objectid", "name" , @contest.blank?? '' : @contest.objectid ) ,{}, { class: 'form-control', id: 'contestname' , prompt: '-- 請選擇 --',required: true} %>
+            "objectid", "name" , @contest.blank?? '' : @contest.objectid ) ,{ prompt: '-- 請選擇 --'}, { class: 'form-control', id: 'contestname' , required: true} %>
     </div>
     <div class="form-group">
-      <div class="input-group">
-        <%= f.text_field :number , class: 'form-control' , id: 'number' , placeholder: '輸入號碼', title: '請輸入數字' ,required: true %>
+      <div class="input-group ">
+        <%= f.text_field :number , class: 'form-control' , id: 'number' , placeholder: "輸入號碼", title: '請輸入數字' ,required: true %>
         <span class="input-group-btn">
-          <%= f.submit "查詢", class: "btn btn-default" , data: { disable_with: "..." } %>  
+          <%= f.submit "查詢", class: "btn btn-primary" , data: { disable_with: "..." } %>  
         </span>
       </div><!-- /input-group -->
     </div>
   </div>
-  <div class="col-lg-4"></div>
 <% end %>
-<%# @result_count %>
