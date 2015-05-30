@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
       get 'search' => 'contests#search'
       post 'search' => 'contests#search'
+
+      get ':photo_id/share' => 'contests#share', as: 'share'
     end
   end
   

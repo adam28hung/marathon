@@ -1,0 +1,23 @@
+<link href="/css/contest.css" rel="stylesheet">
+
+<div class="container">
+  <div class="col-lg-12 text-center">
+    <h1 class="page-header"><%= show_share_title %></h1>
+  </div>
+
+  <% if !@photo.blank? %>
+  <div class="col-lg-12" id='photos_container'>
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4 thumb">
+      <%= link_to @photo[0]['pageURL'], _target: 'blank', title: @photo[0]['objectId'], class: 'thumbnail' do %>
+        <%= image_tag(@photo[0]['imageURL'], class: "img-responsive", alt: "#{@photo[0]['objectId']}" )%>
+      <% end %> 
+      <div class='shareaholic-canvas' data-app='share_buttons' data-app-id='17932779'></div>
+    </div>
+    <div class="col-lg-4"></div>
+  </div>
+  <% else %>
+    <%= render 'photo_not_found' %>
+  <% end %>
+
+</div>
