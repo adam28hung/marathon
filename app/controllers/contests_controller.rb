@@ -12,7 +12,7 @@ class ContestsController < ApplicationController
   def index
     
     if Contest.first.blank?
-      fetch_all_contest
+      Contest.check_new_contest
     end
 
     @q = Contest.ransack(params[:q])
@@ -24,6 +24,7 @@ class ContestsController < ApplicationController
 
     # retrieve order(createdAt: desc)
     # default limit 100 a query
+
     query_this_contest = Parse::Query.new("Photo").tap do |q|
       q.eq("contestId", @contest.objectid)
       q.order_by = 'createdAt'
@@ -120,7 +121,6 @@ class ContestsController < ApplicationController
         format.js { render  template: "contests/no_more" }
       end
     end
-
   end
 
   private 
@@ -131,36 +131,6 @@ class ContestsController < ApplicationController
 
   def set_contest
     @contest = Contest.friendly.find(params[:id])
-  end
-
-  # fetch all contests for dropdown list
-  def fetch_all_contest
-
-    # retrieve contest form (RunPicDev)
-    all_contests_query = Parse::Query.new("Contest")
-    all_contests_query.limit = 1000
-    all_contests = all_contests_query.get
-    
-    all_contests.each do |contest|
-      if !Contest.exists?(objectid: contest['objectId'])
-        
-        photo_count_query = Parse::Query.new("Photo").tap do |q|
-          q.eq("contestId", contest['objectId'])
-          q.count
-        end.get
-
-        photo_count_of_the_contest = photo_count_query['count']
-        
-        Contest.create({
-          objectid: contest['objectId'],
-          name: contest['name'],
-          place: contest['place'],
-          photo_count: photo_count_of_the_contest.to_i,
-          date_created_on_parse: contest['createdAt'] })
-
-      end
-    end
-
   end
 
   def check_query_page_is_valid?(query_page)

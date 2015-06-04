@@ -2,10 +2,11 @@
   <%= link_to share_contests_path(photo['objectId']), title: photo['objectId'], class: 'thumbnail' do %>
     <%= image_tag(photo['imageURL'], class: "img-responsive", alt: "#{photo['objectId']}" )%>
   <% end %> 
+</div>
+  
   <%# link_to photo['pageURL'], _target: 'blank', title: photo['objectId'], class: 'thumbnail' do %>
     <%# image_tag(photo['imageURL'], class: "img-responsive", alt: "#{photo['objectId']}" )%>
   <%# end %> 
-</div>
 
   <%# photo['objectId'] %>
   <%# photo['contestId'] %>

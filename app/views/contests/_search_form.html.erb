@@ -5,7 +5,7 @@
             "objectid", "name" , @contest.blank?? '' : @contest.objectid ) ,{ prompt: '-- 請選擇 --'}, { class: 'form-control', id: 'contestname' , required: true} %>
     </div>
     <div class="form-group">
-      <div class="input-group ">
+      <div class="input-group">
         <%= f.text_field :number , class: 'form-control' , id: 'number' , placeholder: "輸入號碼", title: '請輸入數字' ,required: true %>
         <span class="input-group-btn">
           <%= f.submit "查詢", class: "btn btn-primary" , data: { disable_with: "..." } %>  

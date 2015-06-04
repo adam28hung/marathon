@@ -45,7 +45,6 @@ end
 
 group :development do
   gem 'thin'
-  gem 'meta_request'
   #gem 'faker'
   #gem 'populator'
   #gem 'brakeman', :require => false
@@ -54,6 +53,7 @@ group :development do
   #gem 'xray-rails'
   gem 'capistrano',  '~> 3.1'
   gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-sidekiq'
   # gem 'capistrano-passenger'
   # gem 'capistrano-bundler', '~> 1.1.2', require: false
   
@@ -85,6 +85,10 @@ gem 'simple_form'
 
 gem 'sanitize'
 #gem 'geokit-rails'
+gem 'aws-sdk', '~> 2'
+gem 'whenever', :require => false
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -95,5 +99,11 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # for debug
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'rack-mini-profiler'
+
 end
 

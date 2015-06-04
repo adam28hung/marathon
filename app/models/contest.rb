@@ -32,6 +32,40 @@ class Contest < ActiveRecord::Base
     Contest.order("#{order_columns[rand(0..count)]} " + "#{desc_asc[rand(0..1)]}" ).pluck(:id)
   end
 
+  # fetch all contests for dropdown list
+  def self.check_latest_contest
+    require 'parse-ruby-client'
+    Parse.init :application_id => ENV['parse_application_id'],
+               :api_key        => ENV['parse_api_key'],
+               :quiet           => false
+    # retrieve contest form (RunPicDev)
+    all_contests_query = Parse::Query.new("Contest")
+    all_contests_query.limit = 1000
+    all_contests = all_contests_query.get
+    
+    Contest.destroy_all
+
+    all_contests.each do |contest|
+      if !Contest.exists?(objectid: contest['objectId'])
+        
+        photo_count_query = Parse::Query.new("Photo").tap do |q|
+          q.eq("contestId", contest['objectId'])
+          q.count
+        end.get
+
+        photo_count_of_the_contest = photo_count_query['count']
+        
+        Contest.create({
+          objectid: contest['objectId'],
+          name: contest['name'],
+          place: contest['place'],
+          photo_count: photo_count_of_the_contest.to_i,
+          date_created_on_parse: contest['createdAt'] })
+
+      end
+    end 
+  end
+
 end
 
 class ContestQuery
