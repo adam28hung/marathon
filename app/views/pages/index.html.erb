@@ -1,6 +1,11 @@
 
 <link href="/css/cover.css" rel="stylesheet">
 
+<% content_for :title do %>
+  Home
+<% end %>
+
+
     <div class="site-wrapper">
 
       <div class="site-wrapper-inner">
@@ -9,7 +14,7 @@
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Marathon</h3>
+              <h3 class="masthead-brand">RunPic 路跑照片</h3>
               <nav>
                 <ul class="nav masthead-nav">
                   <!-- <li class="active"><a href="#">首頁</a></li> -->
@@ -37,12 +42,12 @@
                 <% end %>
               </tbody>
             </table>
-            <%= link_to "Check out more", contests_path, class: "btn btn-lg btn-default" %>
+            <%= link_to "Check out more", contests_path, class: "btn btn-lg btn-default " %>
           </div>
           
           <div class="mastfoot">
             <div class="inner">
-              <p><div class='shareaholic-canvas' data-app='share_buttons' data-app-id='17932779'></div></p>
+              
             </div>
           </div>
 

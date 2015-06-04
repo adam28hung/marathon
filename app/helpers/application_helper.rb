@@ -1,7 +1,7 @@
 module ApplicationHelper
   def site_name
     # Change the value below between the quotes.
-    "Marathon"
+    "RunPic 路跑照片"
   end
 
   def site_url
@@ -21,12 +21,12 @@ module ApplicationHelper
 
   def meta_description
     # Change the value below between the quotes.
-    "Add your website description here"
+    "I WILL WHAT I WANT"
   end
 
   def meta_keywords
     # Change the value below between the quotes.
-    "Add your keywords here"
+    "路跑照片 marathon 路跑 馬拉松 RunPic"
   end
 
   # Returns the full title on a per-page basis.

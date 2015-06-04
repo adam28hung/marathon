@@ -1,0 +1,7 @@
+<div class="row">
+  <div id='load_more_data_container' class='text-center' >
+    <%= link_to fetch_next_page_contests_path(id: @contest.id, page: 2.to_s) , id: 'load_more_data', remote: true, class: "btn btn-lg btn-warning" do %>
+      <i class="fa fa-spin fa-cog fa-1x"></i>Load more data...
+    <% end %>
+  </div>
+</div>

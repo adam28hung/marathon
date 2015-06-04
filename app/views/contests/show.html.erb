@@ -1,27 +1,23 @@
 <link href="/css/contest.css" rel="stylesheet">
+<% content_for :title do %>
+  <%= @contest.name %>
+<% end %>
 
 <div class="container">
   <div class="col-lg-12 text-center">
     <h1 class="page-header"><%= @contest.name %></h1>
-    <%= render(partial: 'simple_search_form' ) if @initial_photos_set.count > 0 %>
+    <%= initial_simple_searh_form %>
   </div>
   <div class="row" id='photos_container'>
     <%= render(partial: 'photo_set', collection: @initial_photos_set, as: :photo ) %>
   </div>
-  <% if @initial_photos_set.count > 0 %>
-  <div class="row">
-    <div id='load_more_data_container' class='text-center' >
-      <%= link_to fetch_next_page_contests_path(id: @contest.id, page: 2.to_s) , id: 'load_more_data', remote: true, class: "btn btn-lg btn-warning" do %>
-        <i class="fa fa-spin fa-cog fa-1x"></i>Load more data...
-      <% end %>
-    </div>
-  </div>
-  <% end %>
+  <%= initial_loading_link %>
 </div>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#number').mask('00000');
-  });
-</script>
-<%# console %>
+<% content_for :footer_js do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#number').mask('00000');
+    });
+  </script>
+<% end %>
