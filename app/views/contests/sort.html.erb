@@ -1,0 +1,13 @@
+<link href="/css/contest.css" rel="stylesheet">
+
+<% content_for :title do %>
+  所有賽事
+<% end %>
+<br>
+<%= render 'search_contest_name' %>
+<br>
+<div class="container">
+  <div class="col-mg-12">
+    <%= render_contest_rearch_result %>
+  </div>
+</div>

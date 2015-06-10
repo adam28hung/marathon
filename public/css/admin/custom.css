@@ -1,0 +1,82 @@
+
+/*-----------------------------------------------------------------------頁首---*/
+
+#wrapper > header{background-color:#FABF01;border-bottom:1px solid #E4AE00}
+#wrapper > header aside{border-left:1px solid #FFCC29}
+#wrapper > header aside a{border-left:1px solid #E4AE00;border-right:1px solid #FFCC29;
+text-shadow:0 1px 0 #FFCC29;color:#333333}
+#wrapper > header aside a:hover{background-color:#E4AE00}
+
+#aside-1{background-image:url(../../images/admin/index-b.png)}
+#aside-2{background-image:url(../../images/admin/profile-b.png)}
+#aside-3{background-image:url(../../images/admin/logout-b.png)}
+
+/*-----------------------------------------------------------------------側欄---*/
+
+article > nav li:hover{background:#FABF01}
+.menu{border-left:3px solid #FABF01}
+
+/*-----------------------------------------------------------------------大標---*/
+
+#content nav .active{border-bottom:5px solid #EADAB8}
+
+/*-----------------------------------------------------------------------列表---*/
+
+.list th a,
+.list a:hover{color:#A67C2C}
+
+.list tr:hover,
+.list th,
+.list-edit,
+.list-super-admin{background:#FAF2E3!important;border-top:1px solid #EADAB8;border-bottom:1px solid #EADAB8}
+
+.list .tool .uvs,
+.list-edit .tool .uvs{border:1px solid #BDA36E;color:#A67C2C}
+.list .tool .uvs:hover,
+.list-edit .tool .uvs:hover{border:1px solid #A67C2C;background:#EADAB8}
+.list-edit img{width:100%}
+
+/*預覽*/
+
+
+.list-view .form{position:relative}
+.list-view .form .enter{position:absolute;top:7px;right:-15px;width:30px;height:30px;display:block;
+background:#ddd;text-align:center;padding:7px 0 0 0;border-radius:50%}
+.list-view .form .enter:hover{padding-left:5px}
+.list-view .form .total{border-top:1px dashed #aaa!important}
+
+.list-view .form tr,
+.list-view .form th,
+.list-view .form td{padding:3px 5px;border:0!important;background:#fff!important}
+
+tr.list-view,tr.list-view:hover{background:#F9F9F9!important;border:0}
+
+/*-----------------------------------------------------------------------按鈕---*/
+
+.button a{border:1px solid #DDD}
+.button .highlight{background:#EADAB8;font-weight:300!important;
+border:1px solid #DBC494;color:#333}
+.button .highlight:hover{background:#DBC494}
+
+/*-----------------------------------------------------------------------發文---*/
+
+.tab .active{border-bottom:4px solid #EADAB8}
+
+.post .button{background-color:#D9E7E9}
+.post .button:hover{background-color:#B3D2D7}
+
+/*-----------------------------------------------------------------------預覽---*/
+
+.preview h5{color:#0F6DB5}
+.preview h6{color:#B31C13}
+.preview li{padding:0 0 0 20px;background:url(../../images/admin/li.png) 0 5px no-repeat}
+
+/*-----------------------------------------------------------------------表單---*/
+
+.form h4 b{color:#17ABBE}
+.form .total{border-top:1px dashed #aaa!important}
+
+/*-----------------------------------------------------------------------頁碼---*/
+
+.page a:hover{color:#000}
+.page .active{background:#EADAB8;}

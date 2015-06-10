@@ -1,0 +1,19 @@
+<table class="table">
+  <!-- <caption>所有賽事</caption> -->
+  <thead>
+    <tr>
+      <th><%= sort_link(@q, :name, "比賽名稱") %></th>
+      <th><%= sort_link(@q, :place, "舉辦地點") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contests.each do |contest| %>
+      <tr>
+        <td><%= link_to(contest.name, contest_path(contest)) %></td>
+        <td><%= contest.place %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= paginate @contests %>

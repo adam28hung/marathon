@@ -3,12 +3,14 @@
 <% content_for :title do %>
   所有賽事
 <% end %>
-
+<br>
+<%= render 'search_contest_name' %>
+<br>
 <div class="container">
   <div class="col-mg-12">
     
     <table class="table">
-      <caption>所有賽事</caption>
+      <!-- <caption>所有賽事</caption> -->
       <thead>
         <tr>
           <th><%= sort_link(@q, :name, "比賽名稱") %></th>

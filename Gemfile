@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'twitter-bootstrap-rails'
-gem 'high_voltage', '~> 2.3.0'
+# gem 'high_voltage', '~> 2.3.0'
 gem "figaro"
 gem 'friendly_id'
 gem 'babosa'
@@ -65,7 +65,7 @@ group :development do
 
 end
 
-gem 'sucker_punch', '~> 1.0'
+# gem 'sucker_punch', '~> 1.0'
 # gem 'mailgun_rails'
 
 # gem 'recaptcha', :require => "recaptcha/rails"
@@ -76,6 +76,9 @@ gem 'mini_magick'
 gem 'carrierwave'
 
 gem 'devise'
+gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
+gem 'google-api-client'
 
 gem "rails-alertify"
 gem 'kaminari'
@@ -89,6 +92,8 @@ gem 'aws-sdk', '~> 2'
 gem 'whenever', :require => false
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
+gem 'rails_admin'
+gem 'disqus_rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -103,7 +108,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
-  gem 'rack-mini-profiler'
+  # gem 'rack-mini-profiler'
 
 end
 

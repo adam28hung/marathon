@@ -1,0 +1,75 @@
+<link href="/css/bootstrap-social.css" rel="stylesheet">
+<%# simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <!-- <div class="form-inputs"> -->
+    <%# f.input :email, required: false, autofocus: true %>
+    <%# f.input :password, required: false %>
+    <%# f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+  <!-- </div> -->
+
+  <!-- <div class="form-actions"> -->
+    <%# f.button :submit, "Log in" %>
+  <!-- </div> -->
+<%# end %>
+<br>
+<div class="container">
+  <form class="form-signin">
+    <h2 class="form-signin-heading">登入</h2>
+    
+    <a class="btn btn-block btn-social btn-facebook" href="/members/auth/facebook">
+      <i class="fa fa-facebook"></i>
+      Sign in with Facebook
+    </a>
+    <br>
+    <a class="btn btn-block btn-social btn-google" href="/members/auth/google_oauth2">
+      <i class="fa fa-google"></i>
+      Sign in with Google+
+    </a>
+    
+    <%# link_to "Sign with Facebook", member_omniauth_authorize_path(:facebook), class: 'btn btn-block btn-social btn-facebook' unless member_signed_in? %>
+    <%# link_to "Sign with Google+", member_omniauth_authorize_path(:google_oauth2), class: 'btn btn-block btn-social btn-google' unless member_signed_in? %>
+  </form>
+</div> <!-- /container -->
+
+<%# render "devise/shared/links" %>
+<style>
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #fff;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
