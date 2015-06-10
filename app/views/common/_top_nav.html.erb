@@ -16,7 +16,6 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="<%= 'active' if (current_page?(contests_path) | current_page?(sort_contests_path))%>"><%= link_to "所有賽事", contests_path %></li>
               <li class="<%= 'active' if current_page?(search_contests_path) %>"><%= link_to "查詢", search_contests_path %></li>
-              <li class="<%= 'active' if current_page?(new_member_session_path()) %>"><%= link_to "登入", new_member_session_path() unless member_signed_in? %></li>
               
               <% if member_signed_in? %>
               <li><%= link_to "登出", destroy_member_session_path, method: :delete %></li>
