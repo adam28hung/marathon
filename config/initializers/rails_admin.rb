@@ -20,7 +20,7 @@ RailsAdmin.config do |config|
   config.navigation_static_label = "Monit"
 
   config.navigation_static_links = {
-    'Sidekiq' => '/monit/sidekiq'
+    'Sidekiq' => '/admin/sidekiq'
   }
 
   config.actions do

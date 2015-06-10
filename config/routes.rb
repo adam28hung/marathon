@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   require 'sidekiq/web'
   
   root "statics#index"
@@ -30,9 +29,16 @@ Rails.application.routes.draw do
       get ':photo_id/share' => 'contests#share', as: 'share'
     end
   end
+  
 
-  namespace :monit do
-    mount Sidekiq::Web => '/sidekiq'
+  namespace :admin do
+
+    authenticated :admin do
+      mount Sidekiq::Web => '/sidekiq'  
+    end
+
+    mount RailsAdmin::Engine => '/advanced', as: 'rails_admin'
+
   end
-
+  
 end
