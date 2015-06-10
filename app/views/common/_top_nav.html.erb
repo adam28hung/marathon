@@ -1,20 +1,40 @@
-<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <%= link_to site_name, site_url, :class => "navbar-brand" %>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+    <div class="container topnav">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <%= link_to site_name, site_url, class: "navbar-brand topnav" %>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="<%= 'active' if (current_page?(contests_path) | current_page?(sort_contests_path))%>"><%= link_to "所有賽事", contests_path %></li>
+              <li class="<%= 'active' if current_page?(search_contests_path) %>"><%= link_to "查詢", search_contests_path %></li>
+              <li class="<%= 'active' if current_page?(new_member_session_path()) %>"><%= link_to "登入", new_member_session_path() unless member_signed_in? %></li>
+              
+              <% if member_signed_in? %>
+              <li><%= link_to "登出", destroy_member_session_path, method: :delete %></li>
+              <li>
+                <%= link_to current_member.info_page do %>
+                  <%= image_tag(current_member.picture, class: "img-responsive img-circle", width: '30',onload: '$(this).parents(".thumb").addClass("animation-target");' )%>
+                <% end %>
+              </li>
+              <% end %>
+              
+              <% if admin_signed_in? %>
+              <li><%= link_to "管理員", admin_sidekiq_web_path %></li>
+              <li><%= link_to "登出", destroy_admin_session_path, method: :delete %></li>
+              <% end %>
+              
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
     </div>
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav pull-right">
-        <!-- <li class="<%# 'active' if current_page?(root_path) %>"><%# link_to "首頁", root_path %></li> -->
-        <li class="<%= 'active' if current_page?(contests_path) %>"><%= link_to "所有賽事", contests_path %></li>
-        <li class="<%= 'active' if current_page?(search_contests_path) %>"><%= link_to "查詢", search_contests_path %></li>
-      </ul>
-    </div><!-- /.nav-collapse -->
-  </div><!-- /.container -->
-</div><!-- /.navbar -->
+    <!-- /.container -->
+</nav>

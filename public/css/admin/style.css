@@ -1,0 +1,273 @@
+
+/*-----------------------------------------------------------------------全域---*/
+
+body{background:url(../../images/admin/bg.gif) 0 0 repeat-y #F9F9F9}
+#wrapper{min-width:1024px;font:300 14px courier,微軟正黑體,Microsoft JhengHei;color:#333;line-height:1.7em;}
+a{font:300 14px courier,微軟正黑體,Microsoft JhengHei;text-decoration:none;color:#333;
+-webkit-transition:all .3s ease;-moz-transition:all .3s ease;line-height:1.7em}
+div,td,p{line-height:1.7em;-webkit-transition:all .3s ease;-moz-transition:all .3s ease}
+.left{float:left}
+.right{float:right}
+
+/*-----------------------------------------------------------------------頁首---*/
+
+#wrapper > header{overflow:hidden;height:50px;background:url(../../images/admin/h1.png) center center no-repeat}
+#wrapper > header h1{display:none}
+#wrapper > header aside{height:100%;}
+#wrapper > header aside.right{width:409px}
+#wrapper > header aside a{display:inline-block;height:100%;padding:17px 20px 0 50px;text-align:center;
+font:300 13px courier;background-position:18px 17px;background-repeat:no-repeat}
+
+
+/*-----------------------------------------------------------------------側欄---*/
+
+article > nav{background:#303338;width:185px}
+article > nav ul{border-top:1px solid #1E2023;padding:10px 0 0 0;background:#25272A}
+article > nav ul:nth-child(3){border-bottom:1px solid #42454C;}
+article > nav li{border-top:1px solid #42454C;border-bottom:1px solid #1E2023;background-color:#303338;
+-webkit-transition:all .3s ease;-moz-transition:all .3s ease;position:relative}
+
+article > nav li > a{display:block;color:#ccc;text-shadow:0 -1px 0 #0E0F10;height:50px;background:#303338;
+border-left:1px solid #1E2023;width:175px;margin:0 0 0 10px;padding:14px 0 0 35px}
+article > nav li:hover > a{color:#fff}
+article > nav a img{margin:0 15px 0 0;position:relative;top:2px}
+
+/*子選單*/
+.menu-box:hover .menu{display:block}
+.menu-box > a{background:url(../../images/admin/sub-title.png) 163px 39px no-repeat #303338}
+.menu{display:none;position:absolute;top:-1px;left:185px;width:100%;z-index:5}
+.menu a{display:block;text-align:center;height:52px;padding:16px 0 0 0;background:#303338;
+border-top:1px solid #42454C;border-bottom:1px solid #1E2023;color:#ccc;text-shadow:0 -1px 0 #0E0F10}
+.menu a:hover{background:#25272A;color:#fff}
+
+/*-----------------------------------------------------------------------大標---*/
+
+#content header{border-bottom:1px solid #ddd;padding:15px 0 0 30px;height:64px}
+#content header h2{font:900 26px 微軟正黑體,Microsoft JhengHei;padding:0 30px 0 0}
+#content header h2 span{font:300 15px 微軟正黑體,Microsoft JhengHei;margin:0 0 0 5px}
+
+/*頁籤*/
+#content nav{margin:5px 0 0 0;height:100%}
+#content nav a{display:inline-block;margin:0 5px;color:#999;height:43px;padding:4px 10px 0 10px}
+#content nav a:hover,
+#content nav .active{color:#333}
+#content nav .active{font-weight:900}
+
+/*說明*/
+#content .explain{position:relative;width:16px;height:16px;margin:9px 30px 0 0;
+background:url(../../images/admin/explain.png) 0 0 no-repeat;text-align:right}
+#content .explain p{display:none;position:absolute;right:30px;top:-11px;background:#333;color:#ccc;
+padding:10px 15px;font:italic 300 .9em 微軟正黑體,Microsoft JhengHei;border-radius:5px;min-width:200px}
+#content .explain:hover p{display:inline-block}
+#content .explain p:after{content:"";display:block;width:0px;height:0px;
+border-top:7px solid #F9F9F9;border-bottom:7px solid #F9F9F9;
+border-left:7px solid #333;border-right:7px solid #F9F9F9;
+position:absolute;top:12px;right:-14px}
+
+/*-----------------------------------------------------------------------頁身---*/
+
+#content{width:calc(100% - 185px);background:F9F9F9;position:relative;overflow:hidden}
+
+#content article{padding:30px 0 30px 30px;width:62%;font:300 14px courier,微軟正黑體,Microsoft JhengHei}
+#content article a{font:300 14px courier,微軟正黑體,Microsoft JhengHei}
+#content article b{font:900 16px 微軟正黑體,Microsoft JhengHei}
+#content article table{background:#fff}
+#content article > div{margin:0 0 30px 0;min-width:779px;position:relative;overflow:hidden}
+
+/*欄位*/
+article .text{width:100%;border:1px solid #ddd;font:300 14px courier,微軟正黑體,Microsoft JhengHei;color:#777;padding:7px}
+article textarea{width:100%;border:1px solid #ddd;max-width:100%;min-width:100%;min-height:100px;
+font:300 14px courier,微軟正黑體,Microsoft JhengHei;color:#777;padding:7px}
+article .file{width:100%;border:1px dashed #ddd;padding:7px;text-indent:-7777px;font-size:0%;min-height:33px;
+background:url(../../images/admin/upload-1.png) 15px center no-repeat;position:relative;top:-3px}
+_:-moz-tree-row(hover), article .file {top:-1px}
+article .file:hover{background-color:#f9f9f9}
+article .file.success{background:url(../../images/admin/upload-2.png) 15px center no-repeat #f9f9f9}
+article select{border:1px solid #ddd;padding:5px;width:100%;margin:5px 0;color:#777}
+
+/*工具列*/
+.tool{text-align:right;opacity:0;filter:alpha(opacity=0);
+-webkit-transition:all .3s ease;-moz-transition:all .3s ease;}
+.tool a{display:inline-block;width:16px;height:16px;opacity:.5;filter:alpha(opacity=50);
+background-position:0 0;background-repeat:no-repeat;cursor:pointer;margin:5px 0 0 10px;
+text-indent:-7777px}
+.tool a:hover{opacity:1;filter:alpha(opacity=100)}
+.tool .delete{background-image:url(../../images/admin/trash.png)}
+.tool .edit{background-image:url(../../images/admin/edit.png)}
+.tool .save{background-image:url(../../images/admin/save.png)}
+.tool .cancel{background-image:url(../../images/admin/cancel.png)}
+.tool .show{background-image:url(../../images/admin/show.png)}
+.tool .hide{background-image:url(../../images/admin/hide.png)}
+.tool .uvs{width:auto;height:auto;padding:5px 10px;border-radius:5px;text-align:center;text-indent:0px}
+
+/*-----------------------------------------------------------------------次標---*/
+
+.hgroup h3{font:300 26px 微軟正黑體,Microsoft JhengHei;color:#aaa}
+.hgroup h3 span{font:300 15px 微軟正黑體,Microsoft JhengHei;margin:0 0 0 5px}
+
+/*-----------------------------------------------------------------------列表---*/
+
+.list,.list a{color:#333}
+.list table tr:nth-child(2n-1){background:#f2f2f2}
+.list tr td:first-child,
+.list tr th:first-child{padding-left:15px}
+.list tr td:last-child,
+.list tr th:last-child{padding-right:15px}
+.list td{padding:12px 5px 10px 5px}
+.list tr:hover .tool{opacity:1;filter:alpha(opacity=100)}
+
+.list th{padding:10px 5px 5px 5px}
+
+/*狀態*/
+.list .icon img{position:relative;top:4px}
+
+/*隱藏*/
+.list .off{background:#F9F9F9!important;color:#ccc}
+.list .off p,.list .off a{color:#ccc}
+
+/*編輯*/
+.list-edit {font-size:13px}
+.list-edit .tool{opacity:1;filter:alpha(opacity=100)}
+.list-edit .file{position:absolute;top:1px;margin-left:12px;width:48%}
+
+/*內文&時間*/
+.list p,.list .time{font-size:.9em;color:#777}
+
+/*-----------------------------------------------------------------------按鈕---*/
+
+.button{overflow:hidden;}
+.button a{display:block;color:#555;width:125px;text-align:center;padding:7px 0;background:#F1F1F1}
+.button a img{position:relative;top:2px}
+.button a:hover{background:#ddd}
+
+.button .left img{margin:0 15px 0 0}
+.button .right{margin:0 0 0 15px}
+.button .right img{margin:0 0 0 15px}
+
+/*-----------------------------------------------------------------------表單---*/
+
+.form{background:#fff;padding:10px 15px;border:1px solid #ddd}
+.form h4{height:45px}
+.form td{padding:5px 0}
+
+/*-----------------------------------------------------------------------搜尋---*/
+
+.search{border:1px solid #ddd;width:100%}
+.search .text{border:none}
+.search .submit{width:20px;height:20px;background:url(../../images/admin/search.png) 0 0 no-repeat;border:none;cursor:pointer;opacity:.5;filter:alpha(opacity=50);text-indent:-9999px;margin:7px 0 0 0}
+.search .submit:hover{opacity:1;filter:alpha(opacity=100)}
+.search select{background:#F2F2F2;border:none;padding:5px 10px;width:100%;margin:5px 0;color:#aaa}
+
+/*-----------------------------------------------------------------------發文---*/
+
+.tab ul{overflow:hidden}
+.tab li{float:left;opacity:.5;filter:alpha(opacity=50);font-weight:900;padding:0 15px 5px 15px}
+.tab .active{opacity:1;filter:alpha(opacity=100)}
+.tab li img{margin:0 10px 0 0;position:relative;top:3px}
+
+#tab-li li{margin:5px 0 10px 0}
+#tab-li li .text{background:url(../../images/admin/li.png) 10px center no-repeat;padding-left:25px}
+#tab-li .add{display:inline-block;padding:5px 10px;text-align:center;color:#777;
+border-radius:3px;border:1px solid #ddd}
+#tab-li .add:hover{background:#F9F9F9}
+
+/*-----------------------------------------------------------------------預覽---*/
+
+.preview .part{
+border-image:url(../../images/admin/p.png); 
+border-image-slice: 13; 
+border-image-width: 13px; 
+border-image-repeat: repeat;
+border-left:13px solid #F2F2F2;
+margin:0 0 15px 0;padding:0 65px 0 15px;position:relative;cursor:pointer;background:#f9f9f9}
+.preview .part .tool{position:absolute;top:0;right:0}
+.preview .part:hover .tool{opacity:1;filter:alpha(opacity=100)}
+.preview .part:active{background:#fff}
+
+.part img{max-width:100%;height:auto;border:1px solid #DDDDDD}
+.part .space{height:16px;background:url(../../images/admin/right.png) 0 center no-repeat;margin:0 0 15px 0;}
+
+.part-edit{position:relative;cursor:pointer;
+border-image:url(../../images/admin/p.png); 
+border-image-slice: 13; 
+border-image-width: 13px; 
+border-image-repeat: repeat;
+border-left:13px solid #F2F2F2;
+margin:0 0 15px 0;padding:0 0 0 15px}
+.part-edit .tool{opacity:1;filter:alpha(opacity=100)}
+.part-edit .tool a{opacity:1;filter:alpha(opacity=100);
+padding:7px 10px 5px 10px;text-align:center;color:#777;width:100px;height:32px;
+border-radius:3px;border:1px solid #ddd;margin:5px 0 0 0;text-indent:0}
+.part-edit .tool a:hover{background:#eee}
+
+/*-----------------------------------------------------------------------頁碼---*/
+
+.page{text-align:center;}
+.page a{display:inline-block;padding:5px 10px;background:#fff;margin:0 7.5px;color:#999}
+.page .active{color:#999}
+
+/*-----------------------------------------------------------------------進度---*/
+
+.user{width:50%;height:55px}
+.user img{width:55px;height:100%;padding:2px;background:#fff;border:1px solid #ddd;border-radius:50%;margin:0 10px 0 0}
+.user a{color:#555;position:relative;top:-20px}
+.user a:hover{text-decoration:underline}
+
+.status{width:50%;height:55px;position:relative;color:#6A7180;font-size:11px;padding:0 4%;background:#f1f1f1;}
+.status #notch{width:100%;height:4px;background:#ddd;border-radius:15px;margin:20px 0 0 0}
+.status #bar{height:100%;background:#777;border-radius:15px;}
+.status .point{position:absolute;top:16px;width:50px;text-align:center;line-height:.9em}
+.status .point b{display:inline-block;background:#ddd;width:13px;height:13px;border-radius:50%;border:2px solid #fff}
+
+#point-1{left:5%;text-align:left}
+#point-2{left:45%;text-align:center}
+#point-3{right:5%;text-align:right}
+
+.status-0 #bar,
+.status-1 #bar{width:0%}
+.status-2 #bar{width:50%}
+.status-3 #bar{width:100%}
+
+.status-1 #point-1 b,
+.status-2 #point-1 b,
+.status-2 #point-2 b,
+.status-3 #point-1 b,
+.status-3 #point-2 b,
+.status-3 #point-3 b{background:#777}
+
+/*-----------------------------------------------------------------------紀錄---*/
+
+.log{background:#ddd;position:absolute!important;top:0;right:-185px;width:185px;min-width:185px!important;
+z-index:9;padding:20px 10px;font:300 13px 微軟正黑體,Microsoft JhengHei}
+.log span{color:#aaa;font:italic 300 12px Arial}
+.log li{border-bottom:1px dotted #999;padding:15px 0;color:#333;width:100%}
+.log a{opacity:.5;filter:alpha(opacity=50)}
+.log a:hover{opacity:1;filter:alpha(opacity=100)}
+
+/*-----------------------------------------------------------------------相簿---*/
+
+.thumb{position:relative;text-align:left;max-width:310px;background:#fff;}
+.thumb .delete{background:url(../../images/admin/cancel2.png) 0 0 no-repeat;display:block;width:12px;height:12px;
+position:absolute;top:5px;right:5px}
+.thumb img{max-width:100%;width:auto;height:auto;border:1px solid #ddd}
+.thumb:first-child:before{content:"封面";background:#555;color:#fff;padding:2px 8px;position:absolute;top:5px;left:5px;}
+
+.form .thumb{display:inline-block}
+
+.gallery .thumb{max-width:27%;margin:0 2% 2% 0;text-align:center}
+.gallery .thumb:last-child(){margin-right:0px}
+.gallery .cover img,.thumb img:hover{border:1px solid #aaa!important}
+.ui-state-highlight{width:140px;height:140px;border:1px dashed #aaa;float:left;margin-right:15px;margin-bottom:15px;
+background:#eee;}
+
+/*-----------------------------------------------------------------------標籤---*/
+
+#tag-box{overflow:hidden}
+#tag-box .tag{background:#fff;border:1px solid #ddd;padding:7px 14px;margin:0 10px 10px 0;
+border-radius:0 15px 0 15px}
+#tag-box .tag img{position:relative;top:3px;margin:0 10px 0 0;width:22px;}
+#tag-box .tag .tool{display:inline;position:relative;top:3px}
+#tag-box .tag:hover .tool{opacity:1;filter:alpha(opacity=100)}
+
+.tag-text{width:100%;box-shadow:none!important;}
+.tag-text ul{border:1px solid #ddd!important;box-shadow:none!important;background:none!important}

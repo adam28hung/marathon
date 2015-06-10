@@ -16,6 +16,14 @@ module ContestsHelper
     end
   end
 
+  def render_contest_rearch_result
+    if @contests.count > 0
+      render 'contest_list'
+    else
+      render 'no_contest'
+    end
+  end
+
   def show_share_title
     if @contest.blank?
       "圖片不存在 或 已刪除"

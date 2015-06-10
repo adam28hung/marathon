@@ -1,0 +1,14 @@
+#wrapper{width:481px;height:262px;margin:0 auto;font:300 16px courier,微軟正黑體,Microsoft JhengHei;color:#eee;line-height:1.7em;}
+#wrapper .text{width:100%;border:1px solid #ddd;font:300 14px courier,微軟正黑體,Microsoft JhengHei;color:#777;padding:7px;border-radius:5px}
+#wrapper textarea{border:1px solid #ddd;font:300 14px courier,微軟正黑體,Microsoft JhengHei;color:#777;padding:7px;border-radius:5px;
+height:130px;width:100%}
+#wrapper a{display:inline-block;width:100px;text-align:center;height:35px;padding:5px 0 0 0;
+text-decoration:none;margin:0 0 0 15px;border-radius:5px}
+
+#up{padding:50px 50px 0 50px;height:222px;background:#25272A}
+#down{text-align:right;padding:15px 50px 0 50px;height:64px;background:#303338;}
+
+#cancel{border:1px solid #777;color:#777;}
+#cancel:hover{background:#51555B}
+#send{background:#FABF01;border:1px solid #E4AE00;color:#333}
+#send:hover{background:#E4AE00}

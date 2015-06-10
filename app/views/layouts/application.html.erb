@@ -19,11 +19,14 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  
+  <%= disqus_init %>
   <a href="#Top"></a>
 </head>
 <body>
 <%= render 'common/top_nav' unless current_page?(root_path) %>
+<br>
+<span class="label label-success"><%= notice %></span>
+<span class="label label-warning"><%= alert %></span>
 <%= yield %>
 <%= yield :footer_js %>
 </body>

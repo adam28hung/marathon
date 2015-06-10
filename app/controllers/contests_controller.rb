@@ -5,6 +5,7 @@ class ContestsController < ApplicationController
   before_action :set_for_search_form, only: [:show, :search]
 
   require 'parse-ruby-client'
+
   Parse.init :application_id => ENV['parse_application_id'],
              :api_key        => ENV['parse_api_key'],
              :quiet           => false
@@ -12,14 +13,41 @@ class ContestsController < ApplicationController
   def index
     
     if Contest.first.blank?
-      Contest.check_new_contest
+      Contest.check_latest_contest
+    end
+    
+    conditions = params[:q].delete(:name_cont) if params[:q]
+    if conditions.present?
+      params[:q][:groupings] = []
+      conditions.split(/[ 　]/).each_with_index do |word, i| #全角空白と半角空白で切って、単語ごとに処理します
+        params[:q][:groupings][i] = { name_or_place_cont: word }
+      end
     end
 
-    @q = Contest.ransack(params[:q])
+    @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
     @contests = @q.result(distinct: true).page(params[:page])
 
   end
   
+  def sort
+    
+    if Contest.first.blank?
+      Contest.check_latest_contest
+    end
+
+    conditions = params[:q].delete(:name_cont) if params[:q]
+    if conditions.present?
+      params[:q][:groupings] = []
+      conditions.split(/[ 　]/).each_with_index do |word, i| #全角空白と半角空白で切って、単語ごとに処理します
+        params[:q][:groupings][i] = { name_or_place_cont: word }
+      end
+    end
+
+    @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
+    @contests = @q.result(distinct: true).page(params[:page])
+
+  end
+
   def show
 
     # retrieve order(createdAt: desc)
