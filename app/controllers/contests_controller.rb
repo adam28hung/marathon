@@ -15,14 +15,14 @@ class ContestsController < ApplicationController
     if Contest.first.blank?
       Contest.check_latest_contest
     end
-    
-    conditions = params[:q].delete(:name_cont) if params[:q]
-    if conditions.present?
-      params[:q][:groupings] = []
-      conditions.split(/[ 　]/).each_with_index do |word, i| #全角空白と半角空白で切って、単語ごとに処理します
-        params[:q][:groupings][i] = { name_or_place_cont: word }
-      end
-    end
+
+    # conditions = params[:q].delete(:name_cont) if params[:q]
+    # if conditions.present?
+    #   params[:q][:groupings] = []
+    #   conditions.split(/[ 　]/).each_with_index do |word, i| #全角空白と半角空白で切って、単語ごとに処理します
+    #     params[:q][:groupings][i] = { name_or_place_cont: word }
+    #   end
+    # end
 
     @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
     @contests = @q.result(distinct: true).page(params[:page])
@@ -38,13 +38,25 @@ class ContestsController < ApplicationController
     conditions = params[:q].delete(:name_cont) if params[:q]
     if conditions.present?
       params[:q][:groupings] = []
+      # redis_index = ""
       conditions.split(/[ 　]/).each_with_index do |word, i| #全角空白と半角空白で切って、単語ごとに処理します
         params[:q][:groupings][i] = { name_or_place_cont: word }
+        # redis_index = redis_index +" "+ word
       end
     end
-
+    #=========
+    # contests_in_redis =  $redis.get(redis_index)
+    # if contests_in_redis.nil?
+    #   contests_in_redis = (Contest.ransack(params[:q].try(:merge, m: 'or')).result(distinct: true)).to_json
+    #   $redis.set(redis_index, contests_in_redis)
+    #   # Expire the cache, every 3 hours
+    #   $redis.expire(redis_index,3.hour.to_i)
+    # end
+    # @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
+    # @contests = JSON.load contests_in_redis
+    #=========
     @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
-    @contests = @q.result(distinct: true).page(params[:page])
+    @contests = @q.result(distinct: true)#.page(params[:page])
 
   end
 
@@ -52,32 +64,43 @@ class ContestsController < ApplicationController
 
     # retrieve order(createdAt: desc)
     # default limit 100 a query
+    Rails.cache.fetch "#{@contest.objectid}_initial_photos_set", :expires_in => 10.minutes do
 
-    query_this_contest = Parse::Query.new("Photo").tap do |q|
-      q.eq("contestId", @contest.objectid)
-      q.order_by = 'createdAt'
-      q.order = :descending
-      q.limit = @records_per_request
-      q.count
-    end.get
-    
-    @initial_photos_set = naturalized(query_this_contest['results'], 240)
-    
+      query_this_contest = Parse::Query.new("Photo").tap do |q|
+        q.eq("contestId", @contest.objectid)
+        q.order_by = 'createdAt'
+        q.order = :descending
+        q.limit = @records_per_request
+        q.count
+      end.get
+      
+      naturalized(query_this_contest['results'], 240)
+    end
+
+    @initial_photos_set = Rails.cache.read "#{@contest.objectid}_initial_photos_set"
   end
 
   def share
     valid_objectid?(params[:photo_id])
     
-    query_this_contest = Parse::Query.new("Photo").tap do |q|
-      q.eq("objectId", params[:photo_id])
-      q.order_by = 'createdAt'
-      q.order = :descending
-      q.limit = 1
-      q.count
-    end.get
-    
-    if query_this_contest['count'] > 0
-      @photo = naturalized(query_this_contest['results'], 720)
+    Rails.cache.fetch "#{params[:photo_id]}_share_photo", :expires_in => 10.minutes do    
+      query_this_contest = Parse::Query.new("Photo").tap do |q|
+        q.eq("objectId", params[:photo_id])
+        q.order_by = 'createdAt'
+        q.order = :descending
+        q.limit = 1
+        q.count
+      end.get
+
+      if query_this_contest['count'] > 0
+        naturalized(query_this_contest['results'], 720)
+        # @contest = Contest.find_by(objectid: @photo[0]['contestId'])
+      end
+
+    end
+
+    @photo = Rails.cache.read "#{params[:photo_id]}_share_photo"
+    unless @photo.blank?
       @contest = Contest.find_by(objectid: @photo[0]['contestId'])
     end
 

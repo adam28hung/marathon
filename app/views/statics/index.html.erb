@@ -5,8 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:description" name="description" content="<%= meta_description %>">
+  <meta name="Keywords" content="<%= meta_keywords %>">
   <meta name="author" content="<%= meta_author %>">
-  <meta property="og:keywords" name="Keywords" content="<%= meta_keywords %>">
+  
+  <meta property="og:title" content="<%= full_title(yield(:title)) %>">
   <meta property="og:url" name="url" content="http://www.runpic.co/">
   <meta property="og:image" name="image" content="http://www.runpic.co/images/runpic.png">
   
@@ -41,7 +43,7 @@
 <%# render 'common/top_nav' unless current_page?(root_path) %>
 
 <% content_for :title do %>
-  Home
+  快速找到有你的相片
 <% end %>
 
 
@@ -62,7 +64,6 @@
                 <br>
                 <!-- <hr class="intro-divider"> -->
                   <ul class="list-inline intro-social-buttons">
-                    <% @contests = Contest.all.limit(3) %>
                     <% @contests.each do |contest| %>
                       <li>
                         <%= link_to contest_path(contest), class: "btn btn-default btn-lg" do %>
@@ -168,17 +169,6 @@ function loadCSS( href, before, media, callback ){
 <script>
   loadCSS('http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic');
   loadCSS('<%= stylesheet_path("application") %>');
-</script>
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Event",
-  "name": "",
-  "startDate" : "",
-  "url": "http://www.runpic.co",
-  "logo": "http://www.runpic.co/images/runpic.png",
-  "sameAs" : [ "http://www.facebook.com/runpicture"]
-}
 </script>
 
 </body>

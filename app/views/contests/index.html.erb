@@ -20,13 +20,32 @@
         </tr>
       </thead>
       <tbody>
-        <% @contests.each do |contest| %>
-          <tr itemscope itemtype="http://schema.org/Event" >
-            <td itemprop="url" ><%= link_to(contest.name, contest_path(contest), intemprop: 'name') %></td>
-            <td itemprop="address" > <%= contest.place %></td>
-            <td itemprop="startDate" > <%= contest.event_date %></td>
-          </tr>
-        <% end %>
+        
+          <% @contests.each do |contest| %>
+            
+              <tr>
+                <td><%= link_to(contest.name, contest_path(contest)) %></td>
+                <td> <%= contest.place %></td>
+                <td> <%= contest.event_date.strftime('%F') %></td>
+                <script type="application/ld+json">
+                {
+                  "@context": "http://schema.org",
+                  "@type": "Event",
+                  "name": "<%= contest.name %>",
+                  "startDate" : "<%= contest.event_date.strftime('%F') %>",
+                  "url": "<%= contest_url(contest) %>",
+                  "location" : {
+                    "@type" : "Place",
+                    "sameAs" : "",
+                    "name" : "<%= contest.place %>",
+                    "address" : "<%= contest.place %>"
+                  }
+                }
+                </script>
+              </tr>
+            
+          <% end %>
+        
       </tbody>
     </table>
 

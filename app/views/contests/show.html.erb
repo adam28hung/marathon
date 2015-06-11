@@ -12,7 +12,7 @@
     <%= initial_simple_searh_form %>
   </div>
   <div class="row" id='photos_container'>
-    <%= render(partial: 'photo_set', collection: @initial_photos_set, as: :photo ) %>
+    <%= render(partial: 'initial_photo_set', collection: @initial_photos_set, as: :photo ) %>
   </div>
   <%= initial_loading_link %>
 </div>
@@ -30,11 +30,12 @@
   "@context": "http://schema.org",
   "@type": "Event",
   "name": "<%= @contest.name %>",
-  "startDate" : "<%= @contest.event_date %>",
+  "startDate" : "<%= @contest.event_date.strftime('%F') %>",
   "url": "<%= contest_url(@contest) %>",
-  "logo": "http://www.runpic.co/images/runpic.png",
   "location" : {
     "@type" : "Place",
+    "sameAs" : "",
+    "name" : "<%= @contest.place %>",
     "address" : "<%= @contest.place %>"
   }
 }
