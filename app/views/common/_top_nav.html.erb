@@ -9,7 +9,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <%= link_to site_name, site_url, class: "navbar-brand topnav" %>
+            <%= link_to site_url, class: "navbar-brand topnav" do %>
+              <%= image_tag("runpic.png", width: '30', align: 'left', class: 'img-responsive') %>&nbsp;&nbsp;<%= site_name %>
+            <% end %>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
