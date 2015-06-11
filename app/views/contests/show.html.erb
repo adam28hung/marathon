@@ -1,6 +1,6 @@
-<script>
-  loadCSS('/css/contest.css');
-</script>
+<% content_for :meta_area do %>
+  <meta property="og:title" content='<%= full_title(yield(:title)) %>'>
+<% end %>
 
 <% content_for :title do %>
   <%= @contest.name %>
@@ -24,3 +24,18 @@
     });
   </script>
 <% end %>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "<%= @contest.name %>",
+  "startDate" : "<%= @contest.event_date %>",
+  "url": "<%= contest_url(@contest) %>",
+  "logo": "http://www.runpic.co/images/runpic.png",
+  "location" : {
+    "@type" : "Place",
+    "address" : "<%= @contest.place %>"
+  }
+}
+</script>

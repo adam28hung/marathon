@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610112351) do
+ActiveRecord::Schema.define(version: 20150611143419) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150610112351) do
     t.datetime "updated_at",            null: false
     t.string   "slug"
     t.integer  "photo_count"
+    t.date     "event_date"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -75,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150610112351) do
     t.string   "refresh_token"
     t.string   "picture"
     t.string   "info_page"
+    t.date     "event_date"
   end
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true

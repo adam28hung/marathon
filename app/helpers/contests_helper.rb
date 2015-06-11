@@ -8,6 +8,10 @@ module ContestsHelper
     render(partial: 'simple_search_form' ) if @initial_photos_set.count > 0
   end
 
+  def photo_alt(photo)
+    photo['tags'].blank?? "#{photo['objectId']} | #{@contest.name}" : "#{photo['objectId']} | #{photo['tags'] * ","} | #{@contest.name}" 
+  end
+
   def show_share_photo
     unless @photo.blank?
       render 'share_photo_part'

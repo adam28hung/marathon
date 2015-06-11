@@ -186,6 +186,8 @@ GEM
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
     memoist (0.12.0)
+    meta-tags (2.0.0)
+      actionpack (>= 3.0.0)
     meta_request (0.3.4)
       callsite (~> 0.0, >= 0.0.11)
       rack-contrib (~> 1.1)
@@ -387,6 +389,7 @@ DEPENDENCIES
   jquery-rails
   jquery-turbolinks
   kaminari
+  meta-tags
   meta_request
   mini_magick
   mysql2
