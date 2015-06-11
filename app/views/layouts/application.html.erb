@@ -19,7 +19,7 @@
   <![endif]-->
 
   <%# stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true, defer: true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
     <!-- Google Tag Manager -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K6GC2B"
@@ -93,7 +93,11 @@ function loadCSS( href, before, media, callback ){
     ss.media = media || "all";
   });
   return ss;
-}</script>
+};
+$(document).ready(function(){
+  $('#search_form_number').mask('00000');
+});
+</script>
 
 <script>
   loadCSS('<%= stylesheet_path("application") %>');
