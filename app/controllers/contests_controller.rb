@@ -84,9 +84,9 @@ class ContestsController < ApplicationController
   end
 
   def search
-    
-    if !params[:contest_query].blank? && Contest.exists?(objectid: params[:objectid])
-      @contest = Contest.where(objectid: params[:contest_query][:objectid]).limit(1)
+
+    if !params[:contest_query].blank? && Contest.exists?(objectid: params[:contest_query][:objectid])
+      @contest = Contest.where(objectid: params[:contest_query][:objectid]).first
     else
       @contest = Contest.first 
     end
