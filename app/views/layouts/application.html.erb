@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +7,8 @@
   <meta name="description" content="<%= meta_description %>">
   <meta name="author" content="<%= meta_author %>">
   <meta name="Keywords" content="<%= meta_keywords %>">
+  <link rel="SHORTCUT ICON" href="/images/runpic.ico">
+  <link rel="alternate" hreflang="zh-Hant" href="http://www.runpic.co/" />
 
   <title><%= full_title(yield(:title)) %></title>
 
@@ -37,5 +39,7 @@
               <span class="label label-warning"><%= alert %></span>
 <%= yield %>
 <%= yield :footer_js %>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-557949c675304e7f" async="async"></script>
 </body>
 </html>

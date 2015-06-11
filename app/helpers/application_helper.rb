@@ -21,7 +21,7 @@ module ApplicationHelper
 
   def meta_description
     # Change the value below between the quotes.
-    "I WILL WHAT I WANT"
+    "RunPic路跑照片, 快速找到有你的相片"
   end
 
   def meta_keywords
