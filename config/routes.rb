@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   
   root "statics#index"
-  
+    
   devise_for :members, :controllers => { :omniauth_callbacks => "members/omniauth_callbacks" }
   devise_for :admins#, :path => 'administrator' #, :path_names => {:sign_in => 'login', :sign_out => 'logout'}
   # root "pages#index"
   
-
+  get "sitemap.xml" => "sitemaps#index", :format => "xml", :as => :sitemap
   # get 'about' => 'statics#about', :as => :about
   
   resources :pages, :controller => :statics do 
