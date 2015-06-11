@@ -3,7 +3,7 @@ class StaticsController < ApplicationController
   layout false , only: [:index]
 
   def index
-    
+    @contests = Contest.all.limit(3)
   end
 
   def about

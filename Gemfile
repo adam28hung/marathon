@@ -96,6 +96,10 @@ gem 'rails_admin'
 gem 'disqus_rails'
 gem 'meta-tags'
 
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
+gem 'redis-rack-cache'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
