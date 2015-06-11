@@ -25,5 +25,11 @@
   <% end %>
 
 </div>
-
+<% content_for :footer_js do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#search_form_number').mask('00000');
+    });
+  </script>
+<% end %>
 <style>body{padding-top:70px;background-color:#fff}.thumb{margin-bottom:30px}footer{margin:50px 0}</style>
