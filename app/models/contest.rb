@@ -6,7 +6,7 @@ class Contest < ActiveRecord::Base
   validates_presence_of :objectid, :photo_count
   validates_format_of :objectid, with: /[0-9a-zA-Z]{10}/i
 
-  default_scope { order(date_created_on_parse: :desc) }
+  default_scope { order(event_date: :desc) }
 
   paginates_per 15
 
@@ -59,6 +59,7 @@ class Contest < ActiveRecord::Base
           objectid: contest['objectId'],
           name: contest['name'],
           place: contest['place'],
+          event_date: contest['date'],
           photo_count: photo_count_of_the_contest.to_i,
           date_created_on_parse: contest['createdAt'] })
 

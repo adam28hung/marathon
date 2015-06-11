@@ -1,6 +1,9 @@
 <% content_for :title do %>
   所有賽事
 <% end %>
+<% content_for :meta_area do %>
+  <meta property="og:title" content='<%= full_title(yield(:title)) %>'>
+<% end %>
 <br>
 <%= render 'search_contest_name' %>
 <br>

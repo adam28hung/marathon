@@ -4,12 +4,12 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <%= link_to site_url, class: "navbar-brand topnav" do %>
+            <%= link_to site_url, class: "navbar-brand topnav", data: { no_turbolink: true } do %>
               <%= image_tag("runpic.png", width: '30', align: 'left', class: 'img-responsive') %>&nbsp;&nbsp;<%= site_name %>
             <% end %>
         </div>

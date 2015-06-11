@@ -1,6 +1,9 @@
 <% content_for :title do %>
   所有賽事
 <% end %>
+<% content_for :meta_area do %>
+  <meta property="og:title" content='<%= full_title(yield(:title)) %>'>
+<% end %>
 <br>
 <%= render 'search_contest_name' %>
 <br>
@@ -13,13 +16,15 @@
         <tr>
           <th><%= sort_link(@q, :name, "比賽名稱") %></th>
           <th><%= sort_link(@q, :place, "舉辦地點") %></th>
+          <th><%= sort_link(@q, :event_date, "日期") %></th>
         </tr>
       </thead>
       <tbody>
         <% @contests.each do |contest| %>
-          <tr>
-            <td><%= link_to(contest.name, contest_path(contest)) %></td>
-            <td><%= contest.place %></td>
+          <tr itemscope itemtype="http://schema.org/Event" >
+            <td itemprop="url" ><%= link_to(contest.name, contest_path(contest), intemprop: 'name') %></td>
+            <td itemprop="address" > <%= contest.place %></td>
+            <td itemprop="startDate" > <%= contest.event_date %></td>
           </tr>
         <% end %>
       </tbody>

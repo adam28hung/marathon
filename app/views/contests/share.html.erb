@@ -1,6 +1,9 @@
 <% content_for :title do %>
   <%= @contest.name %>
 <% end %>
+<% content_for :meta_area do %>
+  <meta property="og:title" content='<%= full_title(yield(:title)) %>'>
+<% end %>
 <div class="container">
   <div class="col-lg-12 text-center">
     <h1 class="page-header"><%= show_share_title %></h1>
