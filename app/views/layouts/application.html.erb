@@ -23,7 +23,6 @@
   <![endif]-->
 
   <%# stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
     <!-- Google Tag Manager -->
   <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K6GC2B"
@@ -42,7 +41,6 @@
               <span class="label label-success"><%= notice %></span>
               <span class="label label-warning"><%= alert %></span>
 <%= yield %>
-<%= yield :footer_js %>
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-557949c675304e7f" async="async"></script>
@@ -98,14 +96,12 @@ function loadCSS( href, before, media, callback ){
   });
   return ss;
 };
-$(document).ready(function(){
-  $('#search_form_number').mask('00000');
-});
 </script>
 
 <script>
   loadCSS('<%= stylesheet_path("application") %>');
 </script>
-
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%= yield :footer_js %>
 </body>
 </html>
