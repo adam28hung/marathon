@@ -26,7 +26,7 @@ module ApplicationHelper
 
   def meta_keywords
     # Change the value below between the quotes.
-    "路跑照片 marathon 路跑 馬拉松 RunPic"
+    "路跑照片 marathon 路跑 馬拉松 RunPic 路跑照片網站 路跑照片哪裡找 路跑相簿 runpic"
   end
 
   # Returns the full title on a per-page basis.
