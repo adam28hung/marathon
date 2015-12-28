@@ -55,3 +55,4 @@ database.yml
 /config/initializers/recaptcha.rb
 /config/application.yml
 /config/secrets.yml
+dump.rdb
