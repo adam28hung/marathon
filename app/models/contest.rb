@@ -28,12 +28,11 @@ class Contest < ActiveRecord::Base
     order_columns = ['created_at','place','name', 'photo_count']
     desc_asc = ['DESC', 'ASC']
     count = order_columns.count - 1
-
     Contest.order("#{order_columns[rand(0..count)]} " + "#{desc_asc[rand(0..1)]}" ).pluck(:id)
   end
 
   # fetch all contests for dropdown list
-  def self.check_latest_contest
+def self.check_latest_contest
     # retrieve contest form (RunPicDev)
     all_contests_query = Parse::Query.new("Contest")
     all_contests_query.limit = 1000

@@ -5,7 +5,6 @@ class ContestsController < ApplicationController
   before_action :set_for_search_form, only: [:show, :search]
 
   def index
-
     if Contest.first.blank?
       Contest.check_latest_contest
     end
@@ -93,7 +92,6 @@ class ContestsController < ApplicationController
 
     @welcome = true
     @contest_query = ContestQuery.new(params[:contest_query]) unless params[:contest_query].blank?
-
     if @contest_query.valid? && !@contest_query.blank?
       query_this_contest = Parse::Query.new("Photo").tap do |q|
         q.eq("contestId", @contest_query.objectid)
@@ -109,7 +107,6 @@ class ContestsController < ApplicationController
       @contest_name = @contest.name
 
       @welcome = false
-
     end
     set_meta_tags title: '搜尋', og: {title: "搜尋 | #{ENV['site_name']}"}
   end
@@ -143,7 +140,6 @@ class ContestsController < ApplicationController
           format.js { render  template: "contests/no_more" }
         end
       end
-
     else
       respond_to do |format|
         format.js { render  template: "contests/no_more" }
@@ -163,7 +159,6 @@ class ContestsController < ApplicationController
 
   def check_query_page_is_valid?(query_page)
     the_contest = Contest.find_by(objectid: @contest.objectid)
-
     if the_contest.blank? || the_contest.photo_count <= 0
       false
     else
@@ -172,7 +167,6 @@ class ContestsController < ApplicationController
 
       query_page < max
     end
-
   end
 
   def set_for_search_form

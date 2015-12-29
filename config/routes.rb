@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   root "statics#index"
 
   devise_for :members, :controllers => { :omniauth_callbacks => "members/omniauth_callbacks" }
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
+
   resources :contests , only: [:index, :show] do
     collection do
       match 'sort' => 'contests#sort', via: [:get, :post], as: :sort
@@ -29,7 +31,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   namespace :admin do
 
     authenticated :admin do
@@ -37,7 +38,6 @@ Rails.application.routes.draw do
     end
 
     mount RailsAdmin::Engine => '/advanced', as: 'rails_admin'
-
   end
 
 end
