@@ -1,5 +1,5 @@
 <div class="col-lg-3 col-md-3 col-xs-6 thumb">
-  <%= link_to share_contests_path(photo['objectId']), title: photo_alt(photo), class: 'thumbnail' do %>
+  <%= link_to share_photo_contest_path(contest,photo['objectId']), title: photo_alt(photo), class: 'thumbnail' do %>
     <%= image_tag(photo['imageURL'], class: "img-responsive", alt: photo_alt(photo) )%>
-  <% end %> 
+  <% end %>
 </div>

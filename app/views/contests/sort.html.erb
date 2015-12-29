@@ -1,11 +1,18 @@
-<% content_for :title do %>
-  所有賽事
-<% end %>
-<% content_for :meta_area do %>
-  <meta property="og:title" content='<%= full_title(yield(:title)) %>'>
-<% end %>
 <br>
-<%= render 'search_contest_name' %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6 col-mg-12  col-lg-offset-3 text-center">
+      <%= search_form_for @q, url: sort_contests_path, method: :post  do |f| %>
+        <div class="input-group">
+          <%= f.search_field :name_cont, class: 'form-control',placeholder: "比賽名稱..." %>
+          <span class="input-group-btn">
+            <%= f.submit('搜尋', class: "btn btn-primary") %>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 <br>
 <div class="container">
   <div class="col-mg-12">

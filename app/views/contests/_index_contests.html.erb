@@ -1,0 +1,20 @@
+<tr>
+  <td><%= link_to(contest.name, contest_path(contest)) %></td>
+  <td> <%= contest.place %></td>
+  <td> <%= contest.event_date.strftime('%F') %></td>
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Event",
+      "name": "<%= contest.name %>",
+      "startDate" : "<%= contest.event_date.strftime('%F') %>",
+      "url": "<%= contest_url(contest) %>",
+      "location" : {
+        "@type" : "Place",
+        "sameAs" : "",
+        "name" : "<%= contest.place %>",
+        "address" : "<%= contest.place %>"
+      }
+    }
+  </script>
+</tr>

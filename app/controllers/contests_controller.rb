@@ -1,71 +1,43 @@
 class ContestsController < ApplicationController
-  
+
   before_action :set_basic_query_condition
-  before_action :set_contest, only: [:show, :fetch_next_page]
+  before_action :set_contest, only: [:show, :share, :fetch_next_page]
   before_action :set_for_search_form, only: [:show, :search]
 
-  require 'parse-ruby-client'
-
-  Parse.init :application_id => ENV['parse_application_id'],
-             :api_key        => ENV['parse_api_key'],
-             :quiet           => false
-
   def index
-    
+
     if Contest.first.blank?
       Contest.check_latest_contest
     end
-
-    # conditions = params[:q].delete(:name_cont) if params[:q]
-    # if conditions.present?
-    #   params[:q][:groupings] = []
-    #   conditions.split(/[ 　]/).each_with_index do |word, i| #全角空白と半角空白で切って、単語ごとに処理します
-    #     params[:q][:groupings][i] = { name_or_place_cont: word }
-    #   end
-    # end
 
     @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
     @contests = @q.result(distinct: true).page(params[:page])
-
+    set_meta_tags title: '所有賽事', og: {title: "所有賽事 | #{ENV['site_name']}"}
   end
-  
-  def sort
-    
-    if Contest.first.blank?
-      Contest.check_latest_contest
-    end
 
-    conditions = params[:q].delete(:name_cont) if params[:q]
-    if conditions.present?
-      params[:q][:groupings] = []
-      # redis_index = ""
-      conditions.split(/[ 　]/).each_with_index do |word, i| #全角空白と半角空白で切って、単語ごとに処理します
-        params[:q][:groupings][i] = { name_or_place_cont: word }
-        # redis_index = redis_index +" "+ word
+  def sort
+    # if Contest.first.blank?
+    #   Contest.check_latest_contest
+    # end
+    query = { 'groupings' => [] }
+    sort_name = params[:q].try(:[], 'name_cont')
+
+    if sort_name.present?
+      sort_name.split(/[ 　]/).each_with_index do |word, i| #空白
+        query['groupings'][i] = { name_or_place_cont: word }
       end
     end
-    #=========
-    # contests_in_redis =  $redis.get(redis_index)
-    # if contests_in_redis.nil?
-    #   contests_in_redis = (Contest.ransack(params[:q].try(:merge, m: 'or')).result(distinct: true)).to_json
-    #   $redis.set(redis_index, contests_in_redis)
-    #   # Expire the cache, every 3 hours
-    #   $redis.expire(redis_index,3.hour.to_i)
-    # end
-    # @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
-    # @contests = JSON.load contests_in_redis
-    #=========
-    @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
-    @contests = @q.result(distinct: true)#.page(params[:page])
 
+    @q = Contest.ransack(query.try(:merge, m: 'or'))
+    @contests = @q.result(distinct: true)#.page(params[:page])
+    set_meta_tags title: '所有賽事', og: {title: "所有賽事 | #{ENV['site_name']}"}
   end
 
   def show
-
     # retrieve order(createdAt: desc)
     # default limit 100 a query
-    Rails.cache.fetch "#{@contest.objectid}_initial_photos_set", :expires_in => 10.minutes do
-
+    initial_photos_set = $redis.get(@contest.objectid)
+    if initial_photos_set.nil?
       query_this_contest = Parse::Query.new("Photo").tap do |q|
         q.eq("contestId", @contest.objectid)
         q.order_by = 'createdAt'
@@ -73,37 +45,42 @@ class ContestsController < ApplicationController
         q.limit = @records_per_request
         q.count
       end.get
-      
-      naturalized(query_this_contest['results'], 240)
-    end
 
-    @initial_photos_set = Rails.cache.read "#{@contest.objectid}_initial_photos_set"
+      initial_photos_set = naturalized(query_this_contest['results'], 240)
+      $redis.set(@contest.objectid, Marshal.dump(initial_photos_set))
+      @initial_photos_set = initial_photos_set
+    else
+      @initial_photos_set = Marshal.load initial_photos_set
+    end
+    set_meta_tags title: @contest.name, og: {title: "#{@contest.name} | #{ENV['site_name']}"}
   end
 
   def share
-    valid_objectid?(params[:photo_id])
-    
-    Rails.cache.fetch "#{params[:photo_id]}_share_photo", :expires_in => 10.minutes do    
-      query_this_contest = Parse::Query.new("Photo").tap do |q|
-        q.eq("objectId", params[:photo_id])
-        q.order_by = 'createdAt'
-        q.order = :descending
-        q.limit = 1
-        q.count
-      end.get
+    photo_id = params[:photo_id]
+    if valid_objectid?(photo_id)
+      photo_share = $redis.get("#{@contest.objectid}_#{photo_id}")
 
-      if query_this_contest['count'] > 0
-        naturalized(query_this_contest['results'], 720)
-        # @contest = Contest.find_by(objectid: @photo[0]['contestId'])
+      if photo_share.nil? # miss hit
+        query_this_contest = Parse::Query.new("Photo").tap do |q|
+          q.eq("objectId", photo_id)
+          q.order_by = 'createdAt'
+          q.order = :descending
+          q.limit = 1
+          q.count
+        end.get
+
+        if query_this_contest['count'] > 0
+          photo_share = naturalized(query_this_contest['results'], 720)
+        end
+        $redis.set("#{@contest.objectid}_#{photo_id}", Marshal.dump(photo_share))
+        @photo_share = photo_share
+      else
+        @photo_share = Marshal.load photo_share
       end
-
+      set_meta_tags title: @contest.name, og: {title: "#{@contest.name} | #{ENV['site_name']}"}
+    else
+      redirect_to contest_path(@contest), notice: 'Oops..圖片不存在'
     end
-
-    @photo = Rails.cache.read "#{params[:photo_id]}_share_photo"
-    unless @photo.blank?
-      @contest = Contest.find_by(objectid: @photo[0]['contestId'])
-    end
-
   end
 
   def search
@@ -111,12 +88,12 @@ class ContestsController < ApplicationController
     if !params[:contest_query].blank? && Contest.exists?(objectid: params[:contest_query][:objectid])
       @contest = Contest.where(objectid: params[:contest_query][:objectid]).first
     else
-      @contest = Contest.first 
+      @contest = Contest.first
     end
 
     @welcome = true
     @contest_query = ContestQuery.new(params[:contest_query]) unless params[:contest_query].blank?
-    
+
     if @contest_query.valid? && !@contest_query.blank?
       query_this_contest = Parse::Query.new("Photo").tap do |q|
         q.eq("contestId", @contest_query.objectid)
@@ -132,9 +109,9 @@ class ContestsController < ApplicationController
       @contest_name = @contest.name
 
       @welcome = false
-    
+
     end
-    
+    set_meta_tags title: '搜尋', og: {title: "搜尋 | #{ENV['site_name']}"}
   end
 
   def fetch_next_page
@@ -166,7 +143,7 @@ class ContestsController < ApplicationController
           format.js { render  template: "contests/no_more" }
         end
       end
-    
+
     else
       respond_to do |format|
         format.js { render  template: "contests/no_more" }
@@ -174,7 +151,7 @@ class ContestsController < ApplicationController
     end
   end
 
-  private 
+  private
 
   def set_basic_query_condition
     @records_per_request = 100
@@ -186,7 +163,7 @@ class ContestsController < ApplicationController
 
   def check_query_page_is_valid?(query_page)
     the_contest = Contest.find_by(objectid: @contest.objectid)
-    
+
     if the_contest.blank? || the_contest.photo_count <= 0
       false
     else
@@ -195,14 +172,14 @@ class ContestsController < ApplicationController
 
       query_page < max
     end
-    
+
   end
 
   def set_for_search_form
-    @contests = Contest.all  
+    @contests = Contest.all
     @contest_query = ContestQuery.new
   end
-  
+
   def naturalized(origin_set, size)
 
     origin_set.each_with_index do |photo, index|
@@ -214,9 +191,7 @@ class ContestsController < ApplicationController
   end
 
   def valid_objectid?(objectid)
-    valid_objectid_REGEX = /[0-9a-zA-Z]{10}/i
-    objectid.present? &&
-     (objectid =~ valid_objectid_REGEX)
+    objectid.present? && !!(objectid =~ /^[0-9a-zA-Z]{10}$/i )
   end
 
 end
