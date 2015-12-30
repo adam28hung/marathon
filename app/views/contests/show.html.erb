@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-lg-12 text-center">
     <h1 class="page-header"><%= @contest.name %></h1>
-    <%= initial_simple_searh_form %>
+    <%= initial_searh_form dropdown: false if @initial_photos_set.count > 0 %>
   </div>
   <div class="row" id='photos_container'>
     <%= render partial: 'initial_photo_set', collection: @initial_photos_set, as: :photo, locals: { contest: @contest} %>

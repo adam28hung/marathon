@@ -83,15 +83,16 @@ class ContestsController < ApplicationController
   end
 
   def search
+    @contest_query = ContestQuery.new(params[:contest_query]) unless params[:contest_query].blank?
 
-    if !params[:contest_query].blank? && Contest.exists?(objectid: params[:contest_query][:objectid])
-      @contest = Contest.where(objectid: params[:contest_query][:objectid]).first
+    if @contest_query.valid?
+      @contest = Contest.where(objectid: @contest_query.objectid).first
     else
       @contest = Contest.first
     end
 
-    @welcome = true
-    @contest_query = ContestQuery.new(params[:contest_query]) unless params[:contest_query].blank?
+    @query_results_amount = -1
+
     if @contest_query.valid? && !@contest_query.blank?
       query_this_contest = Parse::Query.new("Photo").tap do |q|
         q.eq("contestId", @contest_query.objectid)
@@ -103,10 +104,8 @@ class ContestsController < ApplicationController
       end.get
 
       @query_results = naturalized(query_this_contest['results'], 240)
-      @query_results_amount = query_this_contest['count']
+      @query_results_amount = query_this_contest['count'].to_i
       @contest_name = @contest.name
-
-      @welcome = false
     end
     set_meta_tags title: '搜尋', og: {title: "搜尋 | #{ENV['site_name']}"}
   end

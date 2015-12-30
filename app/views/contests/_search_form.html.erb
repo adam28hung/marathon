@@ -1,14 +1,12 @@
 <%= form_for @contest_query, url: search_contests_path do |f| %>
   <div class="col-md-12 col-lg-6 col-lg-offset-3 text-center">
-    <div class="form-group">
-      <%= f.select :objectid, options_from_collection_for_select(@contests ,
-            "objectid", "name" , @contest.blank?? '' : @contest.objectid ) ,{ prompt: '-- 請選擇 --'}, { class: 'form-control', id: 'contestname' , required: true} %>
-    </div>
+    <%= render_dropdown(@contests, @contest, f) if show_dropdown %>
     <div class="form-group">
       <div class="input-group">
         <%= f.text_field :number , class: 'form-control' , id: 'search_form_number' , placeholder: "輸入號碼", title: '請輸入數字' ,required: true%>
+        <%= (f.hidden_field :objectid, value: @contest.objectid) unless show_dropdown %>
         <span class="input-group-btn">
-          <%= f.submit "查詢", class: "btn btn-primary" , data: { disable_with: "..." } %>  
+          <%= f.submit "查詢", class: "btn btn-primary" , data: { disable_with: "..." } %>
         </span>
       </div><!-- /input-group -->
     </div>

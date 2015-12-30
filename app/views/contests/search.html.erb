@@ -1,26 +1,9 @@
 <br>
 <div class="container">
   <div class="col-lg-12 text-center">
-    <%= render(partial: 'search_form' ) %>
+    <%= initial_searh_form dropdown: true %>
   </div>
-
-  <% if @query_results_amount.to_i > 0 %>
-    <div class="col-lg-12">
-      <h1 class="page-header"><%= show_search_title %></h1>
-    </div>
-    <div class="row" id='photos_container'>
-      <%= render(partial: 'photo_set', collection: @query_results, as: :photo ) %>
-    </div>
-  <% elsif @welcome %>
-    <div class="col-lg-12 text-center">
-      <div class="col-lg-12">
-        <h4>輸入查詢號碼 或 <%= link_to "看其他照片", contest_path(@contest) %></h4>
-      </div>
-    </div>
-  <% else %>
-    <%= render(partial: 'search_result_empty' ) %>
-  <% end %>
-
+  <%= render_search_result @query_results_amount, @query_results %>
 </div>
 <% content_for :footer_js do %>
   <script type="text/javascript">

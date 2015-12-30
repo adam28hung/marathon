@@ -76,11 +76,18 @@ class ContestQuery
   validates :objectid, length: {is: 10}
   validates :objectid, format: { with: /\A[0-9a-zA-Z]{10}\z/i }
   validates_numericality_of :number , :only_integer => true , :greater_than => 0
+  validate :objectid_is_in_the_db
 
   def initialize(attributes = {})
+    # @objectid = attributes['objectid'] || ''
+    # @number = attributes['number'] || -1
     attributes.each do | name, value |
-      send("#{name}=", value)
+      send("#{name}=", value) unless value.nil?
     end
+  end
+
+  def objectid_is_in_the_db
+    errors.add(:objectid, "不存在") unless Contest.where(objectid: objectid).limit(1).count == 1
   end
 
   def persisted?
