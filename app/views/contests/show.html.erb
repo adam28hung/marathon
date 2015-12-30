@@ -6,7 +6,7 @@
   <div class="row" id='photos_container'>
     <%= render partial: 'initial_photo_set', collection: @initial_photos_set, as: :photo, locals: { contest: @contest} %>
   </div>
-  <%= initial_loading_link %>
+  <%= initial_loading_link if @initial_photos_set.count > 0 %>
 </div>
 
 <% content_for :footer_js do %>

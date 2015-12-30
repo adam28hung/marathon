@@ -1,7 +1,7 @@
 module ContestsHelper
 
   def initial_loading_link
-    render partial: 'loading_link' if @initial_photos_set.count > 0
+    render partial: 'loading_link'
   end
 
   def initial_searh_form(options={})

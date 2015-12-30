@@ -1,4 +1,4 @@
-$ ->  
+$ ->
   $(window).scroll ->
     if $(window).scrollTop() + $(window).height() > $(document).height() - 100
       if $('#load_more_data').length > 0
