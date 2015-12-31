@@ -58,13 +58,13 @@ class Contest < ActiveRecord::Base
 
   def fetch_next_page_photo_set(records_per_request, query_page)
     Parse::Query.new("Photo").tap do |q|
-        q.eq("contestId", self.objectid)
-        q.order_by = 'createdAt'
-        q.order = :descending
-        q.limit =  records_per_request
-        q.skip = (records_per_request * (query_page - 1 ))
-        q.count
-      end.get
+      q.eq("contestId", self.objectid)
+      q.order_by = 'createdAt'
+      q.order = :descending
+      q.limit =  records_per_request
+      q.skip = (records_per_request * (query_page - 1 ))
+      q.count
+    end.get
   end
 
   def self.random_pickup

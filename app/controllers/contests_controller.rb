@@ -56,8 +56,10 @@ class ContestsController < ApplicationController
 
         if query_this_contest['count'] > 0
           @photo_share = naturalized(query_this_contest['results'], 720)
+          $redis.set("#{@contest.objectid}_#{photo_id}", Marshal.dump(@photo_share))
+        else
+          redirect_to contest_path(@contest), notice: 'Oops..圖片不存在'
         end
-        $redis.set("#{@contest.objectid}_#{photo_id}", Marshal.dump(@photo_share))
       else
         @photo_share = Marshal.load photo_share
       end
@@ -71,7 +73,7 @@ class ContestsController < ApplicationController
     @contest_query = ContestQuery.new(params[:contest_query]) unless params[:contest_query].blank?
     @query_results_amount = -1
 
-    if @contest_query.try(:valid?) #&& !@contest_query.blank?
+    if @contest_query.try(:valid?)
       @contest = Contest.where(objectid: @contest_query.objectid).first
       query_this_contest = @contest.search_photo(@contest_query, @records_per_request)
 
