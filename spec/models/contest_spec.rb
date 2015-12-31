@@ -1,6 +1,6 @@
 require "rails_helper"
 RSpec.describe Contest, type: :model do
-  let!(:contest) { Contest.create(objectid: '3m6ieXOa7p' \
+  let!(:contest) { Contest.create(objectid: 'Lo8r3KwMw3' \
                                   , name: '2015-海山馬拉松', place: 'Taipei' \
                                   , event_date: '2015-05-03', photo_count: 1 \
                                   , date_created_on_parse: '2015-05-10' ) }

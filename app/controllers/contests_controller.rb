@@ -5,9 +5,9 @@ class ContestsController < ApplicationController
   before_action :set_for_search_form, only: [:show, :search]
 
   def index
-    if Contest.first.blank?
-      Contest.check_latest_contest
-    end
+    # if Contest.first.blank?
+    #   Contest.check_latest_contest
+    # end
 
     @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
     @contests = @q.result(distinct: true).page(params[:page])
@@ -53,7 +53,6 @@ class ContestsController < ApplicationController
 
       if photo_share.nil? # miss hit
         query_this_contest = @contest.fetch_photo(photo_id)
-
         if query_this_contest['count'] > 0
           @photo_share = naturalized(query_this_contest['results'], 720)
           $redis.set("#{@contest.objectid}_#{photo_id}", Marshal.dump(@photo_share))
@@ -124,6 +123,8 @@ class ContestsController < ApplicationController
 
   def set_contest
     @contest = Contest.friendly.find(params[:id])
+    p "contest:"
+    p "set: #{@contest.slug}"
   end
 
   def query_page_is_valid?(query_page)
