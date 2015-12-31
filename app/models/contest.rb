@@ -24,6 +24,49 @@ class Contest < ActiveRecord::Base
     ]
   end
 
+  def fetch_photo(photo_id)
+    Parse::Query.new("Photo").tap do |q|
+      q.eq("contestId", self.objectid)
+      q.eq("objectId", photo_id)
+      q.order_by = 'createdAt'
+      q.order = :descending
+      q.limit = 1
+      q.count
+    end.get
+  end
+
+  def fetch_photo_set(records_per_request)
+    Parse::Query.new("Photo").tap do |q|
+      q.eq("contestId", self.objectid)
+      q.order_by = 'createdAt'
+      q.order = :descending
+      q.limit = records_per_request
+      q.count
+    end.get
+  end
+
+  def search_photo(contest_query, records_per_request)
+    Parse::Query.new("Photo").tap do |q|
+      q.eq("contestId", contest_query.objectid)
+      q.eq("tags", contest_query.number)
+      q.order_by = 'createdAt'
+      q.order = :descending
+      q.limit = records_per_request
+      q.count
+    end.get
+  end
+
+  def fetch_next_page_photo_set(records_per_request, query_page)
+    Parse::Query.new("Photo").tap do |q|
+        q.eq("contestId", self.objectid)
+        q.order_by = 'createdAt'
+        q.order = :descending
+        q.limit =  records_per_request
+        q.skip = (records_per_request * (query_page - 1 ))
+        q.count
+      end.get
+  end
+
   def self.random_pickup
     order_columns = ['created_at','place','name', 'photo_count']
     desc_asc = ['DESC', 'ASC']
@@ -32,7 +75,7 @@ class Contest < ActiveRecord::Base
   end
 
   # fetch all contests for dropdown list
-def self.check_latest_contest
+  def self.check_latest_contest
     # retrieve contest form (RunPicDev)
     all_contests_query = Parse::Query.new("Contest")
     all_contests_query.limit = 1000
