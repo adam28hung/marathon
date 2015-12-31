@@ -37,7 +37,7 @@ gem 'jquery-turbolinks'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem "parse-ruby-client" 
+gem "parse-ruby-client"
 
 group :production, :staging do
   gem 'mysql2'
@@ -56,7 +56,7 @@ group :development do
   gem 'capistrano-sidekiq'
   # gem 'capistrano-passenger'
   # gem 'capistrano-bundler', '~> 1.1.2', require: false
-  
+
   # gem 'rvm-capistrano'
   # gem 'capistrano-ext'
   # gem 'lol_dba'
@@ -115,5 +115,11 @@ group :development, :test do
   gem 'meta_request'
   # gem 'rack-mini-profiler'
 
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'shoulda-matchers', '3.0.1'
+  gem 'database_cleaner'
 end
 

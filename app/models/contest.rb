@@ -1,9 +1,9 @@
 class Contest < ActiveRecord::Base
   extend FriendlyId
   require "babosa"
-  friendly_id :name, use: :slugged
+  friendly_id :slug_candidates, use: :slugged
 
-  validates_presence_of :objectid, :photo_count
+  validates_presence_of :objectid, :photo_count, :name, :place, :date_created_on_parse
   validates_format_of :objectid, with: /\A[0-9a-zA-Z]{10}\z/i
 
   default_scope { order(event_date: :desc) }
@@ -79,8 +79,6 @@ class ContestQuery
   validate :objectid_is_in_the_db
 
   def initialize(attributes = {})
-    # @objectid = attributes['objectid'] || ''
-    # @number = attributes['number'] || -1
     attributes.each do | name, value |
       send("#{name}=", value) unless value.nil?
     end
