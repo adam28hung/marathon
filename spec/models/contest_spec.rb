@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: contests
+#
+#  id                    :integer          not null, primary key
+#  objectid              :string
+#  name                  :string
+#  place                 :string
+#  date_created_on_parse :date
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  slug                  :string
+#  photo_count           :integer
+#  event_date            :date
+#
+
 require "rails_helper"
 RSpec.describe Contest, type: :model do
   let!(:contest) { Contest.create(objectid: 'Lo8r3KwMw3' \
@@ -39,11 +55,11 @@ RSpec.describe Contest, type: :model do
       contest.objectid = nil
       expect(contest).not_to be_valid
     end
-    it "does pass validation when :objectid = '3m6ieXOa7p'" do
+    it "does pass validation when :objectid = 'Lo8r3KwMw3'" do
       expect(contest).to be_valid
     end
-    it "doesn't pass validation when :objectid = '3m6ieXOa7$'" do
-      contest.objectid = '3m6ieXOa7$'
+    it "doesn't pass validation when :objectid = 'Lo8r3KwMw$'" do
+      contest.objectid = 'Lo8r3KwMw$'
       expect(contest).not_to be_valid
     end
     it "doesn't pass validation when :name = nil" do
@@ -61,8 +77,8 @@ RSpec.describe Contest, type: :model do
   end
 
   context 'scope' do
-    it "default scope orders by event_date desc" do
-      expect(Contest.all).to eq([dup_contest, new_contest, contest])
+    it " scope #by_eventdate orders by event_date desc" do
+      expect(Contest.by_eventdate).to eq([dup_contest, new_contest, contest])
     end
   end
 
@@ -83,7 +99,7 @@ RSpec.describe Contest, type: :model do
   end
 
   describe ContestQuery do
-    let!(:contest_query) { ContestQuery.new(objectid: '3m6ieXOa7p' \
+    let!(:contest_query) { ContestQuery.new(objectid: 'Lo8r3KwMw3' \
                                             , number: 1 ) }
 
     context "validation" do
@@ -117,23 +133,23 @@ RSpec.describe Contest, type: :model do
         contest_query.objectid = nil
         expect(contest_query).not_to be_valid
       end
-      it "does pass validation when :objectid = '3m6ieXOa7p'" do
+      it "does pass validation" do
         expect(contest_query).to be_valid
       end
-      it "doesn't pass validation when :objectid = '3m6ieXOa7$' " do
-        contest_query.objectid = '3m6ieXOa7$' # invalid character $
+      it "doesn't pass validation when :objectid = 'Lo8r3KwMw$' " do
+        contest_query.objectid = 'Lo8r3KwMw$' # invalid character $
         expect(contest_query).not_to be_valid
       end
       it "doesn't pass validation when :objectid = '3m6ieXOa7a' " do
         contest_query.objectid = '3m6ieXOa7a' # not in the db
         expect(contest_query).not_to be_valid
       end
-      it "doesn't pass validation when :objectid = '3m6ieXOa7az' " do
-        contest_query.objectid = '3m6ieXOa7az' # too long
+      it "doesn't pass validation when :objectid = 'Lo8r3KwMw3z' " do
+        contest_query.objectid = 'Lo8r3KwMw3z' # too long
         expect(contest_query).not_to be_valid
       end
-      it "doesn't pass validation when :objectid = '3m6ieXOa7' " do
-        contest_query.objectid = '3m6ieXOa7az' # too short
+      it "doesn't pass validation when :objectid = 'Lo8r3Kw' " do
+        contest_query.objectid = 'Lo8r3Kw' # too short
         expect(contest_query).not_to be_valid
       end
       it "doesn't pass validation when :number = nil " do

@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def redis
+    Redis.current
+  end
+
   def set_page_info
     set_meta_tags site: ENV['site_name'],
     description: 'RunPic路跑照片, 快速找到有你的相片',

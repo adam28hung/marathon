@@ -5,64 +5,58 @@ class ContestsController < ApplicationController
   before_action :set_for_search_form, only: [:show, :search]
 
   def index
-    # if Contest.first.blank?
-    #   Contest.check_latest_contest
-    # end
-
-    @q = Contest.ransack(params[:q].try(:merge, m: 'or'))
+    @q = Contest.by_eventdate.ransack(params[:q].try(:merge, m: 'or'))
     @contests = @q.result(distinct: true).page(params[:page])
-    set_page_title('所有賽事')
+    page_title('所有賽事')
   end
 
   def sort
-    # if Contest.first.blank?
-    #   Contest.check_latest_contest
-    # end
     query = { 'groupings' => [] }
     sort_name = params[:q].try(:[], 'name_cont')
 
     if sort_name.present?
-      sort_name.split(/[ 　]/).each_with_index do |word, i| #空白
+      sort_name.split(/[ 　]/).each_with_index do |word, i| # space
         query['groupings'][i] = { name_or_place_cont: word }
       end
     end
 
-    @q = Contest.ransack(query.try(:merge, m: 'or'))
-    @contests = @q.result(distinct: true)#.page(params[:page])
-    set_page_title('所有賽事')
+    @q = Contest.by_eventdate.ransack(query.try(:merge, m: 'or'))
+    @contests = @q.result(distinct: true) #.page(params[:page])
+    page_title('所有賽事')
   end
 
   def show
     # retrieve order(createdAt: desc)
     # default limit 100 a query
-    initial_photos_set = $redis.get(@contest.objectid)
+    initial_photos_set = redis.get(@contest.objectid)
     if initial_photos_set.nil?
       query_this_contest = @contest.fetch_photo_set(@records_per_request)
       @initial_photos_set = naturalized(query_this_contest['results'], 240)
-      $redis.set(@contest.objectid, Marshal.dump(@initial_photos_set))
+      redis.set(@contest.objectid, Marshal.dump(@initial_photos_set))
     else
       @initial_photos_set = Marshal.load initial_photos_set
     end
-    set_page_title(@contest.name)
+    page_title(@contest.name)
   end
 
   def share
     photo_id = params[:photo_id]
     if valid_objectid?(photo_id)
-      photo_share = $redis.get("#{@contest.objectid}_#{photo_id}")
+      photo_share = redis.get("#{@contest.objectid}_#{photo_id}")
 
       if photo_share.nil? # miss hit
         query_this_contest = @contest.fetch_photo(photo_id)
         if query_this_contest['count'] > 0
           @photo_share = naturalized(query_this_contest['results'], 720)
-          $redis.set("#{@contest.objectid}_#{photo_id}", Marshal.dump(@photo_share))
+          redis.set("#{@contest.objectid}_#{photo_id}" \
+                    , Marshal.dump(@photo_share))
         else
           redirect_to contest_path(@contest), notice: 'Oops..圖片不存在'
         end
       else
         @photo_share = Marshal.load photo_share
       end
-      set_meta_tags title: @contest.name, og: {title: "#{@contest.name} | #{ENV['site_name']}"}
+      page_title(@contest.name)
     else
       redirect_to contest_path(@contest), notice: 'Oops..圖片不存在'
     end
@@ -82,11 +76,10 @@ class ContestsController < ApplicationController
     else
       @contest = Contest.first
     end
-    set_page_title('搜尋')
+    page_title('搜尋')
   end
 
   def fetch_next_page
-
     query_page = params[:page].to_i
 
     if query_page_is_valid?(query_page)
@@ -105,12 +98,12 @@ class ContestsController < ApplicationController
         end
       else
         respond_to do |format|
-          format.js { render  template: "contests/no_more" }
+          format.js { render template: 'contests/no_more' }
         end
       end
     else
       respond_to do |format|
-        format.js { render  template: "contests/no_more" }
+        format.js { render template: 'contests/no_more' }
       end
     end
   end
@@ -123,12 +116,9 @@ class ContestsController < ApplicationController
 
   def set_contest
     @contest = Contest.friendly.find(params[:id])
-    p "contest:"
-    p "set: #{@contest.slug}"
   end
 
   def query_page_is_valid?(query_page)
-
     if query_page.blank? || query_page <= 0
       return false
     end
@@ -139,7 +129,11 @@ class ContestsController < ApplicationController
       return false
     else
       count = the_contest.photo_count
-      max = (count % @records_per_request) == 0? (count / @records_per_request) : (count / @records_per_request) + 1
+      if (count % @records_per_request) == 0
+        max = (count / @records_per_request)
+      else
+        max = (count / @records_per_request) + 1
+      end
 
       query_page < max
     end
@@ -151,21 +145,20 @@ class ContestsController < ApplicationController
   end
 
   def naturalized(origin_set, size)
-
-    origin_set.each_with_index do |photo, index|
+    origin_set.each do |photo|
       last_part = URI(photo['imageURL']).path.split('/').last
-      new_name = last_part.gsub('o.jpg','n.jpg')
-      photo['imageURL'] = photo['imageURL'].gsub(last_part,"p#{size}x#{size}/#{new_name}")
+      new_name = last_part.gsub('o.jpg', 'n.jpg')
+      photo['imageURL'] = photo['imageURL'].gsub(last_part, "p#{size}x#{size}/#{new_name}")
     end
 
   end
 
   def valid_objectid?(objectid)
-    objectid.present? && !!(objectid =~ /^[0-9a-zA-Z]{10}$/i )
+    objectid.present? && !!(objectid =~ /^[0-9a-zA-Z]{10}$/i)
   end
 
-  def set_page_title(title)
-    set_meta_tags title: title, og: {title: "#{title} | #{ENV['site_name']}"}
+  def page_title(title)
+    set_meta_tags title: title, og: { title: "#{title} | #{ENV['site_name'] }" }
   end
 
 end

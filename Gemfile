@@ -29,6 +29,7 @@ gem "figaro"
 gem 'friendly_id'
 gem 'babosa'
 gem 'jquery-turbolinks'
+gem 'annotate'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -62,7 +63,7 @@ group :development do
   # gem 'lol_dba'
   # lol_dba db:find_indexes
   #gem "better_errors"
-
+  gem 'rubocop', require: false
 end
 
 # gem 'sucker_punch', '~> 1.0'
