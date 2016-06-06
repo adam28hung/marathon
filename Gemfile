@@ -41,7 +41,8 @@ gem 'annotate'
 gem "parse-ruby-client"
 
 group :production, :staging do
-  gem 'mysql2'
+  # gem 'mysql2'
+  gem 'pg'
 end
 
 group :development do
