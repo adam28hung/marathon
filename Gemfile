@@ -55,6 +55,7 @@ group :development do
   gem 'capistrano',  '~> 3.1'
   gem 'capistrano-rails',   '~> 1.1', require: false
   gem 'capistrano-sidekiq'
+  gem 'capistrano-rvm'
   # gem 'capistrano-passenger'
   # gem 'capistrano-bundler', '~> 1.1.2', require: false
 
@@ -80,6 +81,7 @@ gem 'devise'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem 'google-api-client'
+gem 'googleauth'
 
 gem "rails-alertify"
 gem 'kaminari'
@@ -101,6 +103,7 @@ gem 'redis'
 gem 'redis-namespace'
 gem 'redis-rails'
 gem 'redis-rack-cache'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

@@ -448,6 +448,7 @@ DEPENDENCIES
   figaro
   friendly_id
   google-api-client
+  googleauth
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks

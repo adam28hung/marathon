@@ -56,3 +56,5 @@ database.yml
 /config/application.yml
 /config/secrets.yml
 dump.rdb
+
+*.p12
